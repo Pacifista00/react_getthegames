@@ -1,8 +1,13 @@
+import HeroImage from "../components/HeroImage";
+
 const Home = () => {
   return (
-    <div className="container mx-auto px-4">
-      <h1>Hello Gamers!!</h1>
-    </div>
+    <>
+      <HeroImage />
+      <div className="px-4">
+        <h1 className="object-cover">Hello Gamers!!</h1>
+      </div>
+    </>
   );
 };
 
