@@ -1,6 +1,6 @@
 const TopGame = () => {
   return (
-    <div className="bg-blue-700">
+    <section className="top-game bg-blue-700">
       <div className="container flex mx-auto px-4 justify-center gap-6 md:gap-20 pb-10 relative top-50">
         <figure>
           <img
@@ -33,7 +33,7 @@ const TopGame = () => {
           </figcaption>
         </figure>
       </div>
-    </div>
+    </section>
   );
 };
 
