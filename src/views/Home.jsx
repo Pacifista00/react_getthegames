@@ -1,14 +1,15 @@
 import HeroImage from "../components/HeroImage";
 import TopGame from "../components/TopGame";
+import NewConsole from "../components/NewConsole";
+import NewGame from "../components/NewGame";
 
 const Home = () => {
   return (
     <>
       <HeroImage />
       <TopGame />
-      <div className="px-4">
-        <h1 className="object-cover">Hello Gamers!!</h1>
-      </div>
+      <NewConsole />
+      <NewGame />
     </>
   );
 };
