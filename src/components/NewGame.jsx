@@ -1,7 +1,7 @@
 const NewGame = () => {
   return (
-    <section className="new-console md:my-10">
-      <div className="container px-4 mx-auto md:flex md:flex-row-reverse md:justify-center md:content-center md:items-center my-20 md:my-44 w-5/6">
+    <section className="new-console">
+      <div className="container px-4 mx-auto md:flex md:flex-row-reverse md:justify-center md:content-center md:items-center my-20 md:my-0 md:h-screen w-5/6">
         <img
           className="w-4/5 md:w-5/12 mx-auto mb-5 md:mb-0 md:ml-5 rounded-xl shadow-xl"
           src="../../public/images/tekken.jpg"
@@ -16,10 +16,10 @@ const NewGame = () => {
             world-shaking father-and-son grudge matches.
           </p>
           <div className="flex gap-5 mt-4 md:mt-7">
-            <button className="rounded-full bg-blue-700 py-2 px-5 text-gray-200 hover:bg-blue-800 w-full">
+            <button className="rounded-full transition duration-300 bg-blue-700 py-2 px-5 text-gray-200 hover:bg-blue-800 w-full">
               Check detail
             </button>
-            <button className="rounded-full bg-green-500 py-2 px-5 text-gray-200 hover:bg-green-600 w-full">
+            <button className="rounded-full transition duration-300 bg-green-500 py-2 px-5 text-gray-200 hover:bg-green-600 w-full">
               Add to Basket
             </button>
           </div>
