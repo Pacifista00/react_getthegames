@@ -9,7 +9,7 @@ const HeroImage = () => {
           Enjoy the best gaming experience with our exclusive items, and improve
           your gameplay!
         </h2>
-        <button className="bg-slate-200 bg-opacity-25 py-3 px-6 mt-3 text-green-500 text-semibold tracking-wider hover:bg-opacity-35 hover:text-green-300">
+        <button className="bg-slate-200 bg-opacity-15 py-3 px-6 mt-3 text-green-500 text-semibold tracking-wider hover:bg-opacity-25 hover:text-green-400">
           Order Now!
         </button>
         <div className="absolute bottom-0 bg-gradient-to-t from-blue-700 w-full h-40"></div>

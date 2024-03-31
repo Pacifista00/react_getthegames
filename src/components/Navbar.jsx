@@ -24,14 +24,16 @@ const Navbar = () => {
   };
   return (
     <header
-      className={`fixed w-full z-10 top-0 text-sm font-medium py-2 shadow-lg bg-gray-50 ${
+      className={`fixed w-full z-10 top-0 text-sm font-medium py-2 shadow-lg bg-gray-50 transition duration-300 ${
         scrollPosition > 0 ? "" : "bg-opacity-10"
       }`}
     >
       <nav className="md:flex relative container justify-between mx-auto px-4 items-center">
-        <div className="logo text-green-500">
-          <h5>Logo</h5>
-        </div>
+        <img
+          src="../../public/images/logo/gtglogo.png"
+          className="h-7"
+          alt=""
+        />
         <div
           className={`nav-links mt-5 md:mt-0 md:block transition duration-150 ease-out ${
             isOpen ? "" : "hidden"
@@ -48,7 +50,7 @@ const Navbar = () => {
               Game
             </li>
             <li className="hover:text-gray-600 cursor-pointer mb-2 md:mb-0">
-              Basket
+              About
             </li>
           </ul>
         </div>
