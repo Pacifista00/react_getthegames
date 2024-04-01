@@ -27,7 +27,7 @@ const Footer = () => {
             alt=""
           />
         </div>
-        <div className="md:flex md:justify-between gap-8 text-xs">
+        <div className="md:flex md:justify-between gap-8 text-xs lg:text-base">
           <p className="mb-5 md:mb-0">
             Copyright ©GetTheGames. All rights reserved. GetTheGames is a
             registered trademark and all other trademarks, logos and copyrights
