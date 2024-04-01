@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 
@@ -39,17 +40,17 @@ const Navbar = () => {
             isOpen ? "" : "hidden"
           }`}
         >
-          <ul className="md:flex gap-7 text-gray-400">
-            <li className="hover:text-gray-600 cursor-pointer mb-2 md:mb-0">
-              Home
+          <ul className="md:flex gap-7 text-slate-300">
+            <li className="hover:text-slate-500 cursor-pointer mb-2 md:mb-0">
+              <Link to="/">Home</Link>
             </li>
-            <li className="hover:text-gray-600 cursor-pointer mb-2 md:mb-0">
-              Console
+            <li className="hover:text-slate-500 cursor-pointer mb-2 md:mb-0">
+              <Link to="/consoles">Consoles</Link>
             </li>
-            <li className="hover:text-gray-600 cursor-pointer mb-2 md:mb-0">
+            <li className="hover:text-slate-500 cursor-pointer mb-2 md:mb-0">
               Game
             </li>
-            <li className="hover:text-gray-600 cursor-pointer mb-2 md:mb-0">
+            <li className="hover:text-slate-500 cursor-pointer mb-2 md:mb-0">
               About
             </li>
           </ul>

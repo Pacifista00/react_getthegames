@@ -1,3 +1,4 @@
+import Navbar from "../components/Navbar";
 import HeroImage from "../components/HeroImage";
 import TopGame from "../components/TopGame";
 import NewConsole from "../components/NewConsole";
@@ -8,6 +9,7 @@ import Footer from "../components/Footer";
 const Home = () => {
   return (
     <>
+      <Navbar />
       <HeroImage />
       <TopGame />
       <NewConsole />

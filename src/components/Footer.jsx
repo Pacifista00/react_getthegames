@@ -1,12 +1,6 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleChevronDown } from "@fortawesome/free-solid-svg-icons";
-import {
-  faFacebook,
-  faXTwitter,
-  faYoutube,
-  faInstagram,
-} from "@fortawesome/free-brands-svg-icons";
 
 const Footer = () => {
   const [isLink, setIsLink] = useState(false);
@@ -28,12 +22,12 @@ const Footer = () => {
       <div className="container px-4 md:px-20 mx-auto py-14">
         <div className="logo mb-7">
           <img
-            className="w-80"
+            className="w-60 md:w-80"
             src="../../public/images/logo/gtglogo.png"
             alt=""
           />
         </div>
-        <div className="md:flex md:justify-between gap-8 text-sm">
+        <div className="md:flex md:justify-between gap-8 text-xs">
           <p className="mb-5 md:mb-0">
             Copyright ©GetTheGames. All rights reserved. GetTheGames is a
             registered trademark and all other trademarks, logos and copyrights
@@ -84,31 +78,6 @@ const Footer = () => {
                 <li className="whitespace-nowrap">Adventure</li>
                 <li className="whitespace-nowrap">Racing</li>
                 <li className="whitespace-nowrap">Strategy</li>
-              </ul>
-            </div>
-          </div>
-          <div className="footer-link mb-3 md:mb-0">
-            <h6 className="text-lg bg-slate-800">
-              Console
-              <FontAwesomeIcon
-                className={`ml-2 cursor-pointer md:hidden transition duration-500 ${
-                  isConsole ? "rotate-180" : ""
-                }`}
-                icon={faCircleChevronDown}
-                onClick={consoleDropdown}
-              />
-            </h6>
-            <div className="overflow-hidden">
-              <ul
-                className={`transition-transform md:mt-0 duration-300 ease-in-out ${
-                  isConsole ? "mt-0" : "mt-[-100%]"
-                }`}
-              >
-                <li className="whitespace-nowrap">Playstation</li>
-                <li className="whitespace-nowrap">Playstation 2</li>
-                <li className="whitespace-nowrap">Playstation 3</li>
-                <li className="whitespace-nowrap">Playstation 4</li>
-                <li className="whitespace-nowrap">Playstation 5</li>
               </ul>
             </div>
           </div>
