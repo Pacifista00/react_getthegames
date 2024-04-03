@@ -48,7 +48,7 @@ const Navbar = () => {
               <Link to="/consoles">Consoles</Link>
             </li>
             <li className="hover:text-slate-500 cursor-pointer mb-2 md:mb-0">
-              Game
+              <Link to="/games">Games</Link>
             </li>
             <li className="hover:text-slate-500 cursor-pointer mb-2 md:mb-0">
               About
