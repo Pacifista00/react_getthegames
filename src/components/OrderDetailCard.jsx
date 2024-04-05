@@ -1,8 +1,8 @@
 const OrderDetailCard = () => {
   return (
-    <section className="p-6 w-72">
-      <h1 className="text-2xl mb-7">Order Detail</h1>
-      <div className="text-base space-y-2">
+    <section className="p-6 w-full lg:w-72">
+      <h1 className="md:text-2xl mb-7">Order Detail</h1>
+      <div className="text-xs md:text-base space-y-2">
         <h4 className="w-full flex">
           Total Product : <span className="ml-auto">5</span>
         </h4>

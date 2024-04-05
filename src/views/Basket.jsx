@@ -8,7 +8,7 @@ const Basket = () => {
     <div className="flex flex-col min-h-screen">
       <Navbar />
       <div className="pt-20 pb-10">
-        <div className="container mx-auto px-4 lg:px-16 flex gap-5">
+        <div className="container mx-auto px-4 lg:px-16 flex gap-5 flex-col lg:flex-row">
           <BasketList />
           <OrderDetailCard />
         </div>

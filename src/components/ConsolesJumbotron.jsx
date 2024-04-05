@@ -11,7 +11,7 @@ const ConsoleJumbotron = () => {
           <h4 className="text-3xl">Fantastic Offer</h4>
           <p className="mt-2">Don't miss this attractive offer</p>
         </div>
-        <button className="rounded-full h-fit bg-green-500 py-3 px-5 text-gray-200 hover:bg-green-600">
+        <button className="rounded-full h-fit bg-blue-700 py-3 px-5 text-gray-200 hover:bg-blue-800">
           Add to basket
         </button>
       </div>

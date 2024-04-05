@@ -25,11 +25,12 @@ const Navbar = () => {
   };
   return (
     <header
-      className={`fixed w-full z-10 top-0 text-sm font-medium py-2 shadow-lg bg-gray-50 transition duration-300 ${
+      className={`fixed w-full z-10 top-0 text-sm font-medium shadow-lg bg-gray-50 transition duration-300 ${
         scrollPosition > 0 ? "" : "bg-opacity-10"
-      }`}
+      }
+      ${isOpen ? "bg-opacity-100" : ""} `}
     >
-      <nav className="md:flex relative container justify-between mx-auto px-4 items-center">
+      <nav className="md:flex relative container justify-between py-2 mx-auto px-4 items-center">
         <img
           src="../../public/images/logo/gtglogo.png"
           className="h-7"
@@ -74,10 +75,13 @@ const Navbar = () => {
           )}
         </div>
         <div
-          className="md:hidden absolute right-4 top-0 cursor-pointer"
+          className="md:hidden absolute right-4 top-3 cursor-pointer"
           onClick={toggleBar}
         >
-          <FontAwesomeIcon className="text-slate-200 text-xl" icon={faBars} />
+          <FontAwesomeIcon
+            className="text-slate-200 text-xl my-auto"
+            icon={faBars}
+          />
         </div>
       </nav>
     </header>

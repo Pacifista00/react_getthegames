@@ -1,4 +1,5 @@
 import Navbar from "../components/Navbar";
+import SearchBar from "../components/SearchBar";
 import ConsoleList from "../components/ConsoleList";
 import ConsoleJumbotron from "../components/ConsolesJumbotron";
 import Footer from "../components/Footer";
@@ -8,6 +9,7 @@ const Consoles = () => {
     <div className="flex flex-col min-h-screen">
       <Navbar />
       <ConsoleJumbotron />
+      <SearchBar />
       <ConsoleList />
       <Footer />
     </div>

@@ -1,6 +1,6 @@
 const GameList = () => {
   return (
-    <section className="game-list pt-20 pb-10">
+    <section className="game-list">
       <div className="container mx-auto px-4 lg:px-16">
         <div className="game-card grid grid-cols-2 md:grid-cols-4 gap-2">
           <figure className="relative group overflow-hidden mb-3 md:mb-0 cursor-pointer">
