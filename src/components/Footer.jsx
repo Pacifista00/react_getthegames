@@ -18,7 +18,7 @@ const Footer = () => {
   };
 
   return (
-    <footer className="bg-slate-800 text-slate-200 w-full">
+    <footer className="bg-slate-800 text-slate-200 w-full mt-auto">
       <div className="container px-4 md:px-20 mx-auto py-14">
         <div className="logo mb-7">
           <img

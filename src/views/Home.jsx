@@ -8,7 +8,7 @@ import Footer from "../components/Footer";
 
 const Home = () => {
   return (
-    <>
+    <div className="flex flex-col min-h-screen">
       <Navbar />
       <HeroImage />
       <TopGame />
@@ -16,7 +16,7 @@ const Home = () => {
       <NewGame />
       <FeaturedGames />
       <Footer />
-    </>
+    </div>
   );
 };
 

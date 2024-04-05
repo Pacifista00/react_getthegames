@@ -6,6 +6,7 @@ import "./index.css";
 import Home from "./views/Home";
 import Consoles from "./views/Consoles";
 import Games from "./views/Games";
+import Basket from "./views/Basket";
 
 const router = createBrowserRouter([
   {
@@ -19,6 +20,10 @@ const router = createBrowserRouter([
   {
     path: "/games",
     element: <Games />,
+  },
+  {
+    path: "/basket",
+    element: <Basket />,
   },
 ]);
 

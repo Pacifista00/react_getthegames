@@ -51,7 +51,7 @@ const Navbar = () => {
               <Link to="/games">Games</Link>
             </li>
             <li className="hover:text-slate-500 cursor-pointer mb-2 md:mb-0">
-              About
+              <Link to="/basket">Basket</Link>
             </li>
           </ul>
         </div>

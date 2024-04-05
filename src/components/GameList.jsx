@@ -1,8 +1,8 @@
 const GameList = () => {
   return (
-    <section className="featured-games py-20">
+    <section className="game-list pt-20 pb-10">
       <div className="container mx-auto px-4 lg:px-16">
-        <div className="game-card my-8 grid grid-cols-2 md:grid-cols-4 gap-2">
+        <div className="game-card grid grid-cols-2 md:grid-cols-4 gap-2">
           <figure className="relative group overflow-hidden mb-3 md:mb-0 cursor-pointer">
             <img
               className="w-full h-80 object-cover rounded-xl transition duration-300 group-hover:brightness-50"

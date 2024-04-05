@@ -4,11 +4,11 @@ import Footer from "../components/Footer";
 
 const Consoles = () => {
   return (
-    <>
+    <div className="flex flex-col min-h-screen">
       <Navbar />
       <GameList />
       <Footer />
-    </>
+    </div>
   );
 };
 
