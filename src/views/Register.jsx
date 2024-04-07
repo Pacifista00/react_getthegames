@@ -1,13 +1,13 @@
-import LoginSection from "../components/LoginSection";
+import RegisterSection from "../components/RegisterSection";
 import LoginImage from "../components/LoginImage";
 
-const Login = () => {
+const Register = () => {
   return (
     <div className="flex min-h-screen w-screen">
-      <LoginSection />
+      <RegisterSection />
       <LoginImage />
     </div>
   );
 };
 
-export default Login;
+export default Register;

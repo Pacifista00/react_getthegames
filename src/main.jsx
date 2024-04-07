@@ -8,6 +8,7 @@ import Consoles from "./views/Consoles";
 import Games from "./views/Games";
 import Basket from "./views/Basket";
 import Login from "./views/Login";
+import Register from "./views/Register";
 
 const router = createBrowserRouter([
   {
@@ -29,6 +30,10 @@ const router = createBrowserRouter([
   {
     path: "/login",
     element: <Login />,
+  },
+  {
+    path: "/register",
+    element: <Register />,
   },
 ]);
 
