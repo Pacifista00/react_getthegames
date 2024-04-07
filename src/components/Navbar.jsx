@@ -68,8 +68,13 @@ const Navbar = () => {
             </div>
           ) : (
             <div>
-              <button className="rounded-full bg-green-500 py-2 px-5 text-gray-200 hover:bg-green-600 w-full">
-                Login
+              <button>
+                <Link
+                  className="rounded-full bg-green-500 py-2 px-5 text-gray-200 hover:bg-green-600 w-full"
+                  to="/login"
+                >
+                  Login
+                </Link>
               </button>
             </div>
           )}

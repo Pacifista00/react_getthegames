@@ -7,6 +7,7 @@ import Home from "./views/Home";
 import Consoles from "./views/Consoles";
 import Games from "./views/Games";
 import Basket from "./views/Basket";
+import Login from "./views/Login";
 
 const router = createBrowserRouter([
   {
@@ -24,6 +25,10 @@ const router = createBrowserRouter([
   {
     path: "/basket",
     element: <Basket />,
+  },
+  {
+    path: "/login",
+    element: <Login />,
   },
 ]);
 

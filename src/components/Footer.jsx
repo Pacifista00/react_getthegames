@@ -34,7 +34,7 @@ const Footer = () => {
             are the property of their respective owners.
           </p>
           <div className="footer-link mb-3 md:mb-0">
-            <h6 className="text-lg bg-slate-800">
+            <h6 className="text-lg bg-slate-800 md:font-semibold">
               Link
               <FontAwesomeIcon
                 className={`ml-2 cursor-pointer md:hidden transition duration-500 ${
@@ -58,7 +58,7 @@ const Footer = () => {
             </div>
           </div>
           <div className="footer-link mb-3 md:mb-0">
-            <h6 className="text-lg bg-slate-800">
+            <h6 className="text-lg bg-slate-800 md:font-semibold">
               Genre
               <FontAwesomeIcon
                 className={`ml-2 cursor-pointer md:hidden transition duration-500 ${

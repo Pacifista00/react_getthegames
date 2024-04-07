@@ -8,6 +8,7 @@ export default {
     extend: {
       backgroundImage: {
         hero: "url('../public/images/cb.jpg')",
+        chair: "url('../public/images/gamingchair.jpg')",
       },
     },
   },

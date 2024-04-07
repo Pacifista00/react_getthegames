@@ -15,7 +15,7 @@ const OrderDetailCard = () => {
       </div>
       <div className="mt-7">
         <button className="rounded-full bg-green-500 py-2 px-5 text-gray-200 hover:bg-green-600 w-full">
-          Login
+          Pay
         </button>
       </div>
     </section>
