@@ -1,12 +1,33 @@
+import axiosInstance from "../lib/axios";
+import { useState, useEffect } from "react";
+
 const NewConsole = () => {
+  const [data, setData] = useState(null);
+
+  useEffect(() => {
+    const getNewConsole = async () => {
+      try {
+        const response = await axiosInstance.get("/console/5");
+        setData(response.data.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    getNewConsole();
+  }, []);
   return (
     <section className="new-console">
       <div className="container px-4 mx-auto md:flex md:justify-center md:content-center md:items-center my-20 md:my-0 md:h-screen w-5/6">
-        <img
-          className="w-4/5 md:w-5/12 mx-auto mb-5 md:mb-0 md:mr-5"
-          src="../../public/images/PS5.webp"
-          alt=""
-        />
+        {data ? (
+          <img
+            className="w-4/5 md:w-5/12 mx-auto mb-5 md:mb-0 md:mr-5"
+            src={data.image_path}
+            alt=""
+          />
+        ) : (
+          <div className="md:mr-5">.....</div>
+        )}
         <div>
           <h3 className="text-3xl md:text-4xl tracking-widest font-thin mb-3 md:mb-7 text-slate-800">
             Introducing our newest console. Playstation 5!

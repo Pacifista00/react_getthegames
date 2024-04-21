@@ -8,7 +8,7 @@ const TopGame = () => {
     const getTopGame = async () => {
       try {
         const response = await axiosInstance.get("/games");
-        setData(response.data.data.slice(3.0));
+        setData(response.data.data.slice(3, 6));
       } catch (error) {
         console.error(error);
       }

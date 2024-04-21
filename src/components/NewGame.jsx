@@ -1,12 +1,33 @@
+import axiosInstance from "../lib/axios";
+import { useState, useEffect } from "react";
+
 const NewGame = () => {
+  const [data, setData] = useState(null);
+
+  useEffect(() => {
+    const getNewGame = async () => {
+      try {
+        const response = await axiosInstance.get("/game/7");
+        setData(response.data.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    getNewGame();
+  }, []);
   return (
-    <section className="new-console">
+    <section className="new-game">
       <div className="container px-4 mx-auto md:flex md:flex-row-reverse md:justify-center md:content-center md:items-center my-20 md:my-0 md:h-screen w-5/6">
-        <img
-          className="w-4/5 md:w-5/12 mx-auto mb-5 md:mb-0 md:ml-5 rounded-xl shadow-xl"
-          src="../../public/images/tekken.jpg"
-          alt=""
-        />
+        {data ? (
+          <img
+            className="w-4/5 md:w-5/12 mx-auto mb-5 md:mb-0 md:ml-5 rounded-xl shadow-xl"
+            src="../../public/images/tekken.jpg"
+            alt=""
+          />
+        ) : (
+          <div className="md:mr-5">.....</div>
+        )}
         <div>
           <h3 className="text-3xl md:text-4xl tracking-widest font-thin mb-3 md:mb-7 text-slate-800">
             TEKKEN 8, the brand-new entry in the legendary TEKKEN franchise
