@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 const HeroImage = () => {
   return (
     <section className="hero-image relative bg-hero h-screen w-auto bg-no-repeat bg-cover">
@@ -9,9 +11,11 @@ const HeroImage = () => {
           Enjoy the best gaming experience with our exclusive items, and improve
           your gameplay!
         </h2>
-        <button className="bg-slate-200 bg-opacity-15 py-3 px-6 mt-3 text-green-500 text-semibold tracking-wider hover:bg-opacity-25 hover:text-green-400">
-          Order Now!
-        </button>
+        <Link to="/consoles">
+          <button className="bg-slate-200 bg-opacity-15 py-3 px-6 mt-3 text-green-500 text-semibold tracking-wider hover:bg-opacity-25 hover:text-green-400">
+            Order Now!
+          </button>
+        </Link>
         <div className="absolute bottom-0 bg-gradient-to-t from-blue-700 w-full h-40"></div>
       </div>
     </section>

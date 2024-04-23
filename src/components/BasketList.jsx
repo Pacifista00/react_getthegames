@@ -46,7 +46,7 @@ const BasketList = () => {
                       alt=""
                     />
                     <div>
-                      <h5 className="md:text-xl">Tekken 8</h5>
+                      <h5 className="md:text-xl">{basket.name}</h5>
                     </div>
                   </td>
                   <td>
@@ -58,7 +58,7 @@ const BasketList = () => {
                       +
                     </button>
                   </td>
-                  <td>Rp 700.000</td>
+                  <td>Rp {basket.price}</td>
                   <td>
                     <button>
                       <FontAwesomeIcon

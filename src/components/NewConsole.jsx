@@ -1,6 +1,26 @@
 import axiosInstance from "../lib/axios";
 import { useState, useEffect } from "react";
 
+const addToBasket = async (e, console_id, quantity) => {
+  e.preventDefault();
+  try {
+    const response = await axiosInstance.post(
+      "/basket/console/add",
+      {
+        console_id: console_id,
+        quantity: quantity,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.token}`,
+        },
+      }
+    );
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 const NewConsole = () => {
   const [data, setData] = useState(null);
 
@@ -42,7 +62,10 @@ const NewConsole = () => {
             <button className="rounded-full transition duration-300 bg-blue-700 py-2 px-5 text-gray-200 hover:bg-blue-800 w-full">
               Check detail
             </button>
-            <button className="rounded-full transition duration-300 bg-green-500 py-2 px-5 text-gray-200 hover:bg-green-600 w-full">
+            <button
+              onClick={(e) => addToBasket(e, data.id, 1)}
+              className="rounded-full transition duration-300 bg-green-500 py-2 px-5 text-gray-200 hover:bg-green-600 w-full"
+            >
               Add to Basket
             </button>
           </div>
