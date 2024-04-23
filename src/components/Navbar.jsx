@@ -1,14 +1,18 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
+import axiosInstance from "../lib/axios";
 
 const Navbar = () => {
+  const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
   const [isLogin, setIsLogin] = useState(false);
   const [scrollPosition, setScrollPosition] = useState(0);
 
   useEffect(() => {
+    localStorage.token ? setIsLogin(true) : setIsLogin(false);
+
     const handleScroll = () => {
       const position = window.scrollY;
       setScrollPosition(position);
@@ -22,6 +26,25 @@ const Navbar = () => {
 
   const toggleBar = () => {
     setIsOpen(!isOpen);
+  };
+
+  const logout = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axiosInstance.post(
+        "/logout",
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.token}`,
+          },
+        }
+      );
+      localStorage.setItem("token", "");
+      navigate("/login");
+    } catch (error) {
+      console.error(error);
+    }
   };
   return (
     <header
@@ -51,18 +74,25 @@ const Navbar = () => {
             <li className="hover:text-slate-500 cursor-pointer mb-2 md:mb-0">
               <Link to="/games">Games</Link>
             </li>
-            <li className="hover:text-slate-500 cursor-pointer mb-2 md:mb-0">
-              <Link to="/basket">Basket</Link>
-            </li>
+            {isLogin ? (
+              <li className="hover:text-slate-500 cursor-pointer mb-2 md:mb-0">
+                <Link to="/basket">Basket</Link>
+              </li>
+            ) : (
+              ""
+            )}
           </ul>
         </div>
         <div className={`md:block mt-3 md:mt-0 ${isOpen ? "" : "hidden"}`}>
           {isLogin ? (
             <div className="flex gap-3">
-              <button className="rounded-full border-4 border-green-500 py-2 px-5 text-gray-400 hover:border-green-600 hover:text-gray-500 w-full">
+              <button className="rounded-full bg-slate-200 py-2 px-5 text-gray-400 hover:text-green-600 w-full">
                 Account
               </button>
-              <button className="rounded-full bg-green-500 py-2 px-5 text-gray-200 hover:bg-green-600 w-full">
+              <button
+                onClick={logout}
+                className="rounded-full bg-green-500 py-2 px-5 text-gray-200 hover:bg-green-600 w-full"
+              >
                 Logout
               </button>
             </div>

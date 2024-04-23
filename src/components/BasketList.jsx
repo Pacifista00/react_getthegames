@@ -9,7 +9,11 @@ const BasketList = () => {
   useEffect(() => {
     const fetchBaskets = async () => {
       try {
-        const response = await axiosInstance.get("/baskets");
+        const response = await axiosInstance.get("/basket", {
+          headers: {
+            Authorization: `Bearer ${localStorage.token}`,
+          },
+        });
         setData(response.data.data);
       } catch (error) {
         console.error(error);
@@ -22,7 +26,7 @@ const BasketList = () => {
     <section className="basket-games flex-1">
       <h1 className="text-xl md:text-3xl">My Basket</h1>
       <div className="border-y-2 p-3 md:p-5 mt-5">
-        <table class="table-auto w-full">
+        <table className="table-auto w-full">
           <thead className="text-sm md:text-xl">
             <tr>
               <th className="text-start">Product</th>
@@ -34,7 +38,7 @@ const BasketList = () => {
           {data ? (
             <tbody>
               {data.map((basket) => (
-                <tr className="text-center">
+                <tr key={basket.id} className="text-center">
                   <td className="flex items-center">
                     <img
                       className="rounded-md h-14 w-14 md:w-32 md:h-32 object-cover mr-5"

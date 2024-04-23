@@ -1,7 +1,7 @@
 import "./index.css";
-import * as React from "react";
-import * as ReactDOM from "react-dom/client";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import React from "react";
+import { createRoot } from "react-dom/client";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./index.css";
 import Home from "./views/Home";
 import Consoles from "./views/Consoles";
@@ -10,35 +10,17 @@ import Basket from "./views/Basket";
 import Login from "./views/Login";
 import Register from "./views/Register";
 
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <Home />,
-  },
-  {
-    path: "/consoles",
-    element: <Consoles />,
-  },
-  {
-    path: "/games",
-    element: <Games />,
-  },
-  {
-    path: "/basket",
-    element: <Basket />,
-  },
-  {
-    path: "/login",
-    element: <Login />,
-  },
-  {
-    path: "/register",
-    element: <Register />,
-  },
-]);
+const root = createRoot(document.getElementById("root"));
 
-ReactDOM.createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
-    <RouterProvider router={router} />
-  </React.StrictMode>
+root.render(
+  <Router>
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/consoles" element={<Consoles />} />
+      <Route path="/games" element={<Games />} />
+      <Route path="/basket" element={<Basket />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/register" element={<Register />} />
+    </Routes>
+  </Router>
 );
