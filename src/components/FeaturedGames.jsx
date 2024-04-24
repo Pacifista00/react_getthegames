@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import axiosInstance from "../lib/axios";
 import { useState, useEffect } from "react";
 
@@ -33,12 +34,14 @@ const FeaturedGames = () => {
                   alt=""
                 />
                 <div className="md:absolute bottom-3 left-3 mt-2 transition duration-300 md:opacity-0 md:group-hover:opacity-100 md:-translate-x-7 group-hover:translate-x-0">
-                  <figcaption className="text-slate-200 text-base sm:text-lg lg:text-2xl mb-1">
-                    {game.name}
-                  </figcaption>
-                  <button className="hidden md:block rounded-full md:outline hover:outline-none transition duration-300 bg-green-500 md:bg-transparent py-1 px-3 text-slate-200 hover:bg-green-500 active:bg-green-700">
-                    Check
-                  </button>
+                  <Link to={`/product/game/${game.id}`}>
+                    <figcaption className="text-slate-200 text-base sm:text-lg lg:text-2xl mb-1">
+                      {game.name}
+                    </figcaption>
+                    <button className="hidden md:block rounded-full md:outline hover:outline-none transition duration-300 bg-green-500 md:bg-transparent py-1 px-3 text-slate-200 hover:bg-green-500 active:bg-green-700">
+                      Check
+                    </button>
+                  </Link>
                 </div>
               </figure>
             ))}
