@@ -1,6 +1,26 @@
 import axiosInstance from "../lib/axios";
 import { useState, useEffect } from "react";
 
+const addToBasket = async (e, product_type, product_id, quantity) => {
+  e.preventDefault();
+  try {
+    const response = await axiosInstance.post(
+      `/basket/${product_type}/add`,
+      {
+        [product_type === "console" ? "console_id" : "game_id"]: product_id,
+        quantity: quantity,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.token}`,
+        },
+      }
+    );
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 const ProductDetail = ({ product_type, id }) => {
   const [product, setProduct] = useState(null);
   useEffect(() => {
@@ -56,6 +76,17 @@ const ProductDetail = ({ product_type, id }) => {
                         {product.console.name}
                       </span>
                     </h2>
+                    <h2 className="mb-1 md:mb-2">
+                      Genre :{" "}
+                      <span className="font-medium">
+                        {product.genre.map((item, index) => (
+                          <span key={item.id}>
+                            {item.name}
+                            {index !== product.genre.length - 1 ? ", " : ""}
+                          </span>
+                        ))}
+                      </span>
+                    </h2>
                   </div>
                 )}
                 <h2 className="mb-1 md:mb-2">
@@ -69,7 +100,10 @@ const ProductDetail = ({ product_type, id }) => {
                 <h2 className="mb-1 md:mb-2">
                   Stock : <span className="font-medium">{product.stock}</span>
                 </h2>
-                <button className="mt-5 rounded-full bg-green-500 py-2 px-5 text-gray-200 hover:bg-green-600 w-full">
+                <button
+                  onClick={(e) => addToBasket(e, product_type, id, 1)}
+                  className="mt-5 rounded-full bg-green-500 py-2 px-5 text-gray-200 hover:bg-green-600 w-full"
+                >
                   Add To Basket
                 </button>
               </div>
