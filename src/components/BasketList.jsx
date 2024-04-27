@@ -3,18 +3,30 @@ import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import axiosInstance from "../lib/axios";
 import { useState, useEffect } from "react";
 
-const BasketList = () => {
+const BasketList = ({ setTotalProduct, setTotalPrice }) => {
   const [data, setData] = useState(null);
 
   useEffect(() => {
     const fetchBaskets = async () => {
       try {
+        let totalProduct = 0;
+        let totalPrice = 0;
         const response = await axiosInstance.get("/basket", {
           headers: {
             Authorization: `Bearer ${localStorage.token}`,
           },
         });
         setData(response.data.data);
+
+        response.data.data.forEach((product) => {
+          totalPrice += product.price * product.quantity;
+        });
+        response.data.data.forEach((product) => {
+          totalProduct += product.quantity;
+        });
+
+        setTotalProduct(totalProduct);
+        setTotalPrice(totalPrice);
       } catch (error) {
         console.error(error);
       }
@@ -53,12 +65,12 @@ const BasketList = () => {
                     <button className="border bg-slate-200 px-2 rounded-lg">
                       -
                     </button>
-                    <span className="mx-2">1</span>
+                    <span className="mx-2">{basket.quantity}</span>
                     <button className="border bg-slate-200 px-2 rounded-lg">
                       +
                     </button>
                   </td>
-                  <td>Rp {basket.price}</td>
+                  <td>Rp {basket.price * basket.quantity}</td>
                   <td>
                     <button>
                       <FontAwesomeIcon

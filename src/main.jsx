@@ -10,6 +10,7 @@ import Basket from "./views/Basket";
 import Login from "./views/Login";
 import Register from "./views/Register";
 import Product from "./views/Product";
+import Profile from "./views/Profile";
 
 const root = createRoot(document.getElementById("root"));
 
@@ -23,6 +24,7 @@ root.render(
       <Route path="/games" element={<Games />} />
       <Route path="/product/:product_type/:id" element={<Product />} />
       <Route path="/basket" element={<Basket />} />
+      <Route path="/profile" element={<Profile />} />
     </Routes>
   </Router>
 );

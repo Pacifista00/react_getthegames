@@ -53,14 +53,14 @@ const Navbar = () => {
       }
       ${isOpen ? "bg-opacity-100" : ""} `}
     >
-      <nav className="md:flex relative container justify-between py-2 mx-auto px-4 items-center">
+      <nav className="md:flex relative container py-2 mx-auto px-4 items-center">
         <img
           src="../../public/images/logo/gtglogo.png"
-          className="h-7"
+          className="h-7 flex-none mr-7"
           alt=""
         />
         <div
-          className={`nav-links mt-5 md:mt-0 md:block transition duration-150 ease-out ${
+          className={`flex-1 nav-links mt-3 md:mt-0 md:block transition duration-150 ease-out ${
             isOpen ? "" : "hidden"
           }`}
         >
@@ -74,21 +74,20 @@ const Navbar = () => {
             <li className="hover:text-slate-500 cursor-pointer mb-2 md:mb-0">
               <Link to="/games">Games</Link>
             </li>
-            {isLogin ? (
-              <li className="hover:text-slate-500 cursor-pointer mb-2 md:mb-0">
-                <Link to="/basket">Basket</Link>
-              </li>
-            ) : (
-              ""
-            )}
           </ul>
         </div>
-        <div className={`md:block mt-3 md:mt-0 ${isOpen ? "" : "hidden"}`}>
+        <div
+          className={`flex-shrink-0 md:block mt-3 md:mt-0 ${
+            isOpen ? "" : "hidden"
+          }`}
+        >
           {isLogin ? (
             <div className="flex gap-3">
-              <button className="rounded-full bg-slate-200 py-2 px-5 text-gray-400 hover:text-green-600 w-full">
-                Account
-              </button>
+              <Link to="/profile" className="w-full">
+                <button className="rounded-full bg-slate-200 py-2 px-5 text-gray-400 hover:text-green-600 w-full">
+                  Account
+                </button>
+              </Link>
               <button
                 onClick={logout}
                 className="rounded-full bg-green-500 py-2 px-5 text-gray-200 hover:bg-green-600 w-full"

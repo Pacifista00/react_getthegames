@@ -80,9 +80,11 @@ const ProductDetail = ({ product_type, id }) => {
                       Genre :{" "}
                       <span className="font-medium">
                         {product.genre.map((item, index) => (
-                          <span key={item.id}>
+                          <span key={item.genre_id}>
                             {item.name}
-                            {index !== product.genre.length - 1 ? ", " : ""}
+                            {index !== product.genre.length - 1 && (
+                              <span>, </span>
+                            )}
                           </span>
                         ))}
                       </span>

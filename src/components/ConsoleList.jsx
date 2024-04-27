@@ -23,9 +23,9 @@ const ConsoleList = () => {
         <div className="container mx-auto px-4 md:px-10 lg:px-16 grid grid-cols-2 lg:grid-cols-3 gap-5">
           {data.map((console) => (
             <Link key={console.id} to={`/product/console/${console.id}`}>
-              <figure className="mb-3 md:mb-0 cursor-pointer hover:shadow-xl transition duration-300">
+              <figure className="group mb-3 md:mb-0 cursor-pointer hover:shadow-xl transition duration-300 overflow-hidden">
                 <img
-                  className="w-full h-24 md:h-80 object-cover shadow-sm"
+                  className="w-full h-24 md:h-80 object-cover shadow-sm group-hover:scale-105 transition duration-300"
                   src={console.image_path}
                   alt=""
                 />
