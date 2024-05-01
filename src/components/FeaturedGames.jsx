@@ -19,7 +19,7 @@ const FeaturedGames = () => {
   }, []);
   return (
     <section className="featured-games bg-blue-700 py-20">
-      <div className="container mx-auto px-16">
+      <div className="container mx-auto px-6">
         <h3 className="text-4xl sm:text-5xl text-slate-200">Featured Games</h3>
         {data ? (
           <div className="game-card my-8 grid grid-cols-3 lg:grid-cols-6 gap-1 md:gap-2">

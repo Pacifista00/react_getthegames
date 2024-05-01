@@ -10,17 +10,19 @@ const NavbarProfile = () => {
     setIsOpen(!isOpen);
   };
   return (
-    <nav className="my-10">
+    <nav className="py-7">
       <div className="container mx-auto">
-        <ul className="flex gap-7 justify-center text-gray-80000">
+        <ul className="flex gap-3 justify-center text-gray-80000">
           <li>
-            <button className="w-32 cursor-pointer bg-slate-200 py-1 rounded-full">
-              Account
-            </button>
+            <Link to="/profile">
+              <button className="w-28 cursor-pointer bg-slate-200 py-1 rounded-full">
+                Profile
+              </button>
+            </Link>
           </li>
           <li>
             <Link to="/basket">
-              <button className="w-32 cursor-pointer bg-slate-200 py-1 rounded-full">
+              <button className="w-28 cursor-pointer bg-slate-200 py-1 rounded-full">
                 Basket
               </button>
             </Link>
@@ -29,7 +31,7 @@ const NavbarProfile = () => {
             <div className="relative">
               <button
                 onClick={toggleDropdown}
-                className="w-32 cursor-pointer bg-slate-200 py-1 rounded-full"
+                className="w-28 cursor-pointer bg-slate-200 py-1 rounded-full z-10 relative"
               >
                 Manage
                 <FontAwesomeIcon
@@ -42,7 +44,7 @@ const NavbarProfile = () => {
 
               {isOpen && (
                 <div
-                  className="border -mt-5 transition duration-300 rounded-b-2xl overflow-hidden text-green-500"
+                  className="absolute bg-slate-100 border w-28 -mt-5 transition duration-300 rounded-b-2xl overflow-hidden text-green-500"
                   role="menu"
                   aria-orientation="vertical"
                   aria-labelledby="options-menu"

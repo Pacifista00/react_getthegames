@@ -23,8 +23,8 @@ root.render(
       <Route path="/consoles" element={<Consoles />} />
       <Route path="/games" element={<Games />} />
       <Route path="/product/:product_type/:id" element={<Product />} />
-      <Route path="/basket" element={<Basket />} />
       <Route path="/profile" element={<Profile />} />
+      <Route path="/basket" element={<Basket />} />
     </Routes>
   </Router>
 );
