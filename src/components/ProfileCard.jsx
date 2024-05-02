@@ -1,19 +1,13 @@
 import { useState, useEffect } from "react";
 import axiosInstance from "../lib/axios";
-import { useNavigate } from "react-router-dom";
 
 const Modal = ({ isOpen, close, data }) => {
-  const navigate = useNavigate();
   const [oldImage, setOldImage] = useState(data.image_path);
   const [image, setImage] = useState(null);
   const [name, setName] = useState(data.name);
   const [username, setUsername] = useState(data.username);
   const [email, setEmail] = useState(data.email);
   const [bio, setBio] = useState(data.bio ? data.bio : "");
-
-  const handleFileChange = (e) => {
-    setImage(e.target.files[0]);
-  };
 
   const updateUser = async (e) => {
     e.preventDefault();
@@ -53,7 +47,7 @@ const Modal = ({ isOpen, close, data }) => {
               <div>
                 <div className="mb-3">
                   <img
-                    className="h-32 w-32 mx-auto object-cover"
+                    className="h-32 w-32 mx-auto object-cover mb-3 shadow-lg"
                     src={oldImage}
                     alt=""
                   />
@@ -91,7 +85,7 @@ const Modal = ({ isOpen, close, data }) => {
                   <input
                     id="email"
                     className="border-b-2 focus:outline-none focus:border-black"
-                    type="text"
+                    type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                   />
@@ -169,7 +163,7 @@ const ProfileCard = () => {
               <h2>{data.email}</h2>
             </div>
           </div>
-          <div className="bg-slate-100 p-10 pt-28 md:pt-32 -mt-24 md:-mt-28 rounded-lg">
+          <div className="bg-slate-100 px-4 md:px-10 pt-28 md:pt-32 -mt-24 md:-mt-28 pb-5 rounded-lg">
             <div className="my-1">
               <h2 className="text-base md:text-lg">Bio :</h2>
               <p className="min-h-10 bg-white rounded-lg p-3">{data.bio}</p>

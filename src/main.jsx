@@ -11,6 +11,7 @@ import Login from "./views/Login";
 import Register from "./views/Register";
 import Product from "./views/Product";
 import Profile from "./views/Profile";
+import ManageConsole from "./views/ManageConsole";
 
 const root = createRoot(document.getElementById("root"));
 
@@ -25,6 +26,7 @@ root.render(
       <Route path="/product/:product_type/:id" element={<Product />} />
       <Route path="/profile" element={<Profile />} />
       <Route path="/basket" element={<Basket />} />
+      <Route path="/manage/console" element={<ManageConsole />} />
     </Routes>
   </Router>
 );

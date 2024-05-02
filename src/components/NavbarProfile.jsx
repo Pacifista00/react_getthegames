@@ -49,29 +49,23 @@ const NavbarProfile = () => {
                   aria-orientation="vertical"
                   aria-labelledby="options-menu"
                 >
-                  <div className="py-1 mt-5" role="none">
-                    <a
+                  <ul className="py-1 mt-5" role="none">
+                    <Link to="/manage/console">
+                      <li
+                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-green-500 hover:text-slate-200 "
+                        role="menuitem"
+                      >
+                        Console
+                      </li>
+                    </Link>
+                    <li
                       href="#"
                       className="block px-4 py-2 text-sm text-gray-700 hover:bg-green-500 hover:text-slate-200 "
                       role="menuitem"
                     >
-                      Consoles
-                    </a>
-                    <a
-                      href="#"
-                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-green-500 hover:text-slate-200 "
-                      role="menuitem"
-                    >
-                      Games
-                    </a>
-                    <a
-                      href="#"
-                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-green-500 hover:text-slate-200 "
-                      role="menuitem"
-                    >
-                      Genre
-                    </a>
-                  </div>
+                      Game
+                    </li>
+                  </ul>
                 </div>
               )}
             </div>

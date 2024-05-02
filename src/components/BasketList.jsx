@@ -1,5 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faBasketShopping } from "@fortawesome/free-solid-svg-icons";
 import axiosInstance from "../lib/axios";
 import { useState, useEffect } from "react";
 
@@ -38,16 +39,16 @@ const BasketList = ({ setTotalProduct, setTotalPrice }) => {
     <section className="basket-games flex-1">
       <h1 className="text-xl md:text-3xl">My Basket</h1>
       <div className="border-y-2 p-3 md:p-5 mt-5">
-        <table className="table-auto w-full">
-          <thead className="text-sm md:text-xl">
-            <tr>
-              <th className="text-start">Product</th>
-              <th>Quantity</th>
-              <th>Total Price</th>
-              <th></th>
-            </tr>
-          </thead>
-          {data ? (
+        {data?.length > 0 ? (
+          <table className="table-auto w-full">
+            <thead className="text-sm md:text-xl">
+              <tr>
+                <th className="text-start">Product</th>
+                <th>Quantity</th>
+                <th>Total Price</th>
+                <th></th>
+              </tr>
+            </thead>
             <tbody>
               {data.map((basket) => (
                 <tr key={basket.id} className="text-center">
@@ -82,14 +83,12 @@ const BasketList = ({ setTotalProduct, setTotalPrice }) => {
                 </tr>
               ))}
             </tbody>
-          ) : (
-            <tbody>
-              <tr>
-                <td colSpan={3}>Basket is empty...</td>
-              </tr>
-            </tbody>
-          )}
-        </table>
+          </table>
+        ) : (
+          <div className="text-xl text-center text-slate-700">
+            <FontAwesomeIcon icon={faBasketShopping} /> Basket is empty...
+          </div>
+        )}
       </div>
     </section>
   );
