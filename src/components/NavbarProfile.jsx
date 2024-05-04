@@ -31,7 +31,7 @@ const NavbarProfile = () => {
             <div className="relative">
               <button
                 onClick={toggleDropdown}
-                className="w-28 cursor-pointer bg-slate-200 py-1 rounded-full z-10 relative"
+                className="w-28 cursor-pointer bg-slate-200 py-1 rounded-full z-[2] relative"
               >
                 Manage
                 <FontAwesomeIcon
@@ -58,13 +58,15 @@ const NavbarProfile = () => {
                         Console
                       </li>
                     </Link>
-                    <li
-                      href="#"
-                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-green-500 hover:text-slate-200 "
-                      role="menuitem"
-                    >
-                      Game
-                    </li>
+                    <Link to="/manage/game">
+                      <li
+                        href="#"
+                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-green-500 hover:text-slate-200 "
+                        role="menuitem"
+                      >
+                        Game
+                      </li>
+                    </Link>
                   </ul>
                 </div>
               )}

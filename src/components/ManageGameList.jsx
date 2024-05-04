@@ -1,23 +1,46 @@
 import { useState, useEffect } from "react";
 import axiosInstance from "../lib/axios";
+import Select from "react-select";
+import makeAnimated from "react-select/animated";
 
-const Modal = ({ isOpen, close, data }) => {
+const Modal = ({ isOpen, close, data, genreData, consoleData }) => {
   if (!data) return null;
   const [oldImage, setOldImage] = useState(data.image_path);
   const [image, setImage] = useState(null);
   const [name, setName] = useState(data.name);
-  const [developer, setDeveloper] = useState(data.developer);
+  const [consoleId, setConsoleId] = useState(data.console.console_id);
+  const [publisher, setPublisher] = useState(data.publisher);
   const [releaseYear, setReleaseYear] = useState(data.release_year);
   const [stock, setStock] = useState(data.stock);
   const [price, setPrice] = useState(data.price);
+  const [genre, setGenre] = useState(data.genre);
   const [description, setDescription] = useState(data.description);
+  const animatedComponents = makeAnimated();
+  const [genres, setGenres] = useState(
+    genreData.map((genre) => ({
+      value: genre.id,
+      label: genre.name,
+    }))
+  );
+  const genreGame = data.genre.map((genre) => ({
+    value: genre.genre_id,
+    label: genre.name,
+  }));
+  const handleGenreChange = (selectedOptions) => {
+    const selectedGenresData = selectedOptions.map((option) => ({
+      genre_id: option.value,
+      name: option.label,
+    }));
+    setGenre(selectedGenresData);
+  };
 
-  const updateConsole = async (e) => {
+  const updateGame = async (e) => {
     e.preventDefault();
     try {
       const formData = new FormData();
       formData.append("name", name);
-      formData.append("developer", developer);
+      formData.append("console_id", consoleId);
+      formData.append("publisher", publisher);
       formData.append("release_year", releaseYear);
       formData.append("description", description);
       formData.append("stock", stock);
@@ -25,9 +48,12 @@ const Modal = ({ isOpen, close, data }) => {
       if (image) {
         formData.append("image", image);
       }
+      genre.map((item) => {
+        formData.append("genre[]", item.genre_id);
+      });
 
       const response = await axiosInstance.post(
-        `/console/${data.id}/update`,
+        `/game/${data.id}/update`,
         formData,
         {
           headers: {
@@ -48,7 +74,7 @@ const Modal = ({ isOpen, close, data }) => {
         <div className=" fixed inset-0 z-50 bg-black bg-opacity-50 overflow-y-scroll">
           <div className="flex items-center justify-center ">
             <div className="bg-white p-5 rounded-lg w-96 my-10">
-              <form onSubmit={updateConsole}>
+              <form onSubmit={updateGame}>
                 <h1 className="text-2xl font-bold mb-4">Edit Profile</h1>
                 <div>
                   <div className="mb-3">
@@ -69,6 +95,7 @@ const Modal = ({ isOpen, close, data }) => {
                     <label htmlFor="name">Name</label>
                     <input
                       id="name"
+                      name="name"
                       className="border-b-2 focus:outline-none focus:border-black"
                       type="text"
                       value={name}
@@ -77,13 +104,27 @@ const Modal = ({ isOpen, close, data }) => {
                     />
                   </div>
                   <div className="flex flex-col mb-3">
-                    <label htmlFor="developer">Developer</label>
+                    <label>Console</label>
+                    <Select
+                      defaultValue={{
+                        value: consoleId,
+                        label: data.console.name,
+                      }}
+                      options={consoleData.map((console) => ({
+                        value: console.id,
+                        label: console.name,
+                      }))}
+                      onChange={(e) => setConsoleId(e.value)}
+                    />
+                  </div>
+                  <div className="flex flex-col mb-3">
+                    <label htmlFor="publisher">Publisher</label>
                     <input
-                      id="developer"
+                      id="publisher"
                       className="border-b-2 focus:outline-none focus:border-black"
                       type="text"
-                      value={developer}
-                      onChange={(e) => setDeveloper(e.target.value)}
+                      value={publisher}
+                      onChange={(e) => setPublisher(e.target.value)}
                     />
                   </div>
                   <div className="flex flex-col mb-3">
@@ -96,6 +137,18 @@ const Modal = ({ isOpen, close, data }) => {
                       onChange={(e) => setReleaseYear(e.target.value)}
                     />
                   </div>
+                  <div className="flex flex-col mb-3">
+                    <label>Genre</label>
+                    <Select
+                      closeMenuOnSelect={false}
+                      components={animatedComponents}
+                      defaultValue={genreGame}
+                      isMulti
+                      options={genres}
+                      onChange={handleGenreChange}
+                    />
+                  </div>
+
                   <div className="flex flex-col mb-3">
                     <label htmlFor="stock">Stock</label>
                     <input
@@ -150,37 +203,57 @@ const Modal = ({ isOpen, close, data }) => {
   );
 };
 
-const ManageConsoleList = () => {
+const ManageGameList = () => {
   const [data, setData] = useState(null);
+  const [gameData, setGameData] = useState(null);
   const [consoleData, setConsoleData] = useState(null);
+  const [genreData, setGenreData] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const showModal = (consoles) => {
-    setConsoleData(consoles);
+  const showModal = (game) => {
+    setGameData(game);
     setIsModalOpen(true);
   };
   const closeModal = (e) => {
     e.preventDefault();
-    setConsoleData(null);
+    setGameData(null);
     setIsModalOpen(false);
   };
 
   useEffect(() => {
-    const fetchConsoles = async () => {
+    const fetchGames = async () => {
       try {
-        const response = await axiosInstance.get("/consoles");
+        const response = await axiosInstance.get("/games");
         setData(response.data.data);
       } catch (error) {
         console.error(error);
       }
     };
+    const fetchConsoles = async () => {
+      try {
+        const response = await axiosInstance.get("/consoles");
+        setConsoleData(response.data.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    const fetchGenres = async () => {
+      try {
+        const response = await axiosInstance.get("/genres");
+        setGenreData(response.data.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
 
+    fetchGenres();
     fetchConsoles();
+    fetchGames();
   }, []);
 
   return (
     <section className="manage-console-list">
-      <h1 className="text-2xl mb-5">Manage Console</h1>
+      <h1 className="text-2xl mb-5">Manage Games</h1>
       {data ? (
         <div className="overflow-x-scroll">
           <table className="w-full text-xs md:text-sm">
@@ -188,7 +261,8 @@ const ManageConsoleList = () => {
               <tr>
                 <th className="font-medium text-start pr-2">Image</th>
                 <th className="font-medium text-start pr-2">Name</th>
-                <th className="font-medium text-start pr-2">Developer</th>
+                <th className="font-medium text-start pr-2">Console</th>
+                <th className="font-medium text-start pr-2">Publisher</th>
                 <th className="font-medium text-start pr-2">Release year</th>
                 <th className="font-medium text-start pr-2">Stock</th>
                 <th className="font-medium text-start pr-2">Price</th>
@@ -196,23 +270,24 @@ const ManageConsoleList = () => {
               </tr>
             </thead>
             <tbody>
-              {data.map((console) => (
-                <tr key={console.id} className="border-b">
+              {data.map((game) => (
+                <tr key={game.id} className="border-b">
                   <td className="pr-2">
                     <img
                       className="w-24 h-16 object-cover"
-                      src={console.image_path}
+                      src={game.image_path}
                       alt=""
                     />
                   </td>
-                  <td className="pr-2">{console.name}</td>
-                  <td className="pr-2">{console.developer}</td>
-                  <td className="pr-2">{console.release_year}</td>
-                  <td className="pr-2">{console.stock}</td>
-                  <td className="pr-2">{console.price}</td>
+                  <td className="pr-2">{game.name}</td>
+                  <td className="pr-2">{game.console.name}</td>
+                  <td className="pr-2">{game.publisher}</td>
+                  <td className="pr-2">{game.release_year}</td>
+                  <td className="pr-2">{game.stock}</td>
+                  <td className="pr-2">{game.price}</td>
                   <td className="pr-2">
                     <button
-                      onClick={() => showModal(console)}
+                      onClick={() => showModal(game)}
                       className="rounded-full py-1 px-4 mb-1 bg-green-500 hover:bg-green-600 text-slate-200 w-full"
                     >
                       Edit
@@ -225,7 +300,13 @@ const ManageConsoleList = () => {
               ))}
             </tbody>
           </table>
-          <Modal isOpen={isModalOpen} data={consoleData} close={closeModal} />
+          <Modal
+            isOpen={isModalOpen}
+            data={gameData}
+            close={closeModal}
+            genreData={genreData}
+            consoleData={consoleData}
+          />
         </div>
       ) : (
         <div>.....</div>
@@ -234,4 +315,4 @@ const ManageConsoleList = () => {
   );
 };
 
-export default ManageConsoleList;
+export default ManageGameList;

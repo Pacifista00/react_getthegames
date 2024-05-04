@@ -12,6 +12,7 @@ import Register from "./views/Register";
 import Product from "./views/Product";
 import Profile from "./views/Profile";
 import ManageConsole from "./views/ManageConsole";
+import ManageGame from "./views/ManageGame";
 
 const root = createRoot(document.getElementById("root"));
 
@@ -27,6 +28,7 @@ root.render(
       <Route path="/profile" element={<Profile />} />
       <Route path="/basket" element={<Basket />} />
       <Route path="/manage/console" element={<ManageConsole />} />
+      <Route path="/manage/game" element={<ManageGame />} />
     </Routes>
   </Router>
 );
