@@ -2,30 +2,45 @@ import { useState, useEffect } from "react";
 import axiosInstance from "../lib/axios";
 import Select from "react-select";
 import makeAnimated from "react-select/animated";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
-const Modal = ({ isOpen, close, data, genreData, consoleData }) => {
-  if (!data) return null;
-  const [oldImage, setOldImage] = useState(data.image_path);
+const Modal = ({ isOpen, modalMode, close, data, genreData, consoleData }) => {
+  if (!isOpen) return null;
+  const [oldImage, setOldImage] = useState(
+    modalMode == 2 ? data.image_path : ""
+  );
   const [image, setImage] = useState(null);
-  const [name, setName] = useState(data.name);
-  const [consoleId, setConsoleId] = useState(data.console.console_id);
-  const [publisher, setPublisher] = useState(data.publisher);
-  const [releaseYear, setReleaseYear] = useState(data.release_year);
-  const [stock, setStock] = useState(data.stock);
-  const [price, setPrice] = useState(data.price);
-  const [genre, setGenre] = useState(data.genre);
-  const [description, setDescription] = useState(data.description);
+  const [name, setName] = useState(modalMode == 2 ? data.name : "");
+  const [consoleId, setConsoleId] = useState(
+    modalMode == 2 ? data.console.console_id : ""
+  );
+  const [publisher, setPublisher] = useState(
+    modalMode == 2 ? data.publisher : ""
+  );
+  const [releaseYear, setReleaseYear] = useState(
+    modalMode == 2 ? data.release_year : ""
+  );
+  const [stock, setStock] = useState(modalMode == 2 ? data.stock : "");
+  const [price, setPrice] = useState(modalMode == 2 ? data.price : "");
+  const [genre, setGenre] = useState(modalMode == 2 ? data.genre : "");
+  const [description, setDescription] = useState(
+    modalMode == 2 ? data.description : ""
+  );
   const animatedComponents = makeAnimated();
+  const genreGame =
+    modalMode == 2
+      ? data.genre.map((genre) => ({
+          value: genre.genre_id,
+          label: genre.name,
+        }))
+      : "";
   const [genres, setGenres] = useState(
     genreData.map((genre) => ({
       value: genre.id,
       label: genre.name,
     }))
   );
-  const genreGame = data.genre.map((genre) => ({
-    value: genre.genre_id,
-    label: genre.name,
-  }));
   const handleGenreChange = (selectedOptions) => {
     const selectedGenresData = selectedOptions.map((option) => ({
       genre_id: option.value,
@@ -34,6 +49,35 @@ const Modal = ({ isOpen, close, data, genreData, consoleData }) => {
     setGenre(selectedGenresData);
   };
 
+  const addGame = async (e) => {
+    e.preventDefault();
+    try {
+      const formData = new FormData();
+      formData.append("name", name);
+      formData.append("console_id", consoleId);
+      formData.append("publisher", publisher);
+      formData.append("release_year", releaseYear);
+      formData.append("description", description);
+      formData.append("stock", stock);
+      formData.append("price", price);
+      if (image) {
+        formData.append("image", image);
+      }
+      genre.map((item) => {
+        formData.append("genre[]", item.genre_id);
+      });
+
+      const response = await axiosInstance.post(`/game/add`, formData, {
+        headers: {
+          Authorization: `Bearer ${localStorage.token}`,
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      window.location.reload();
+    } catch (error) {
+      console.error(error);
+    }
+  };
   const updateGame = async (e) => {
     e.preventDefault();
     try {
@@ -74,20 +118,25 @@ const Modal = ({ isOpen, close, data, genreData, consoleData }) => {
         <div className=" fixed inset-0 z-50 bg-black bg-opacity-50 overflow-y-scroll">
           <div className="flex items-center justify-center ">
             <div className="bg-white p-5 rounded-lg w-96 my-10">
-              <form onSubmit={updateGame}>
-                <h1 className="text-2xl font-bold mb-4">Edit Profile</h1>
+              <form onSubmit={modalMode == 1 ? addGame : updateGame}>
+                <h1 className="text-2xl font-bold mb-4">
+                  {modalMode == 1 ? "Add Game" : "Edit Game"}
+                </h1>
                 <div>
                   <div className="mb-3">
-                    <img
-                      className="h-32 w-32 mx-auto object-cover mb-3 shadow-lg"
-                      src={oldImage}
-                      alt=""
-                    />
+                    {modalMode == 2 ? (
+                      <img
+                        className="h-32 w-32 mx-auto object-cover mb-3 shadow-lg"
+                        src={oldImage}
+                        alt=""
+                      />
+                    ) : null}
                     <input
                       id="image"
                       type="file"
                       className="mx-auto text-center bg-slate-200 rounded-md"
                       onChange={(e) => setImage(e.target.files[0])}
+                      {...(modalMode == 1 ? { required: true } : {})}
                     />
                   </div>
 
@@ -106,10 +155,14 @@ const Modal = ({ isOpen, close, data, genreData, consoleData }) => {
                   <div className="flex flex-col mb-3">
                     <label>Console</label>
                     <Select
-                      defaultValue={{
-                        value: consoleId,
-                        label: data.console.name,
-                      }}
+                      defaultValue={
+                        modalMode == 2
+                          ? {
+                              value: consoleId,
+                              label: data.console.name,
+                            }
+                          : null
+                      }
                       options={consoleData.map((console) => ({
                         value: console.id,
                         label: console.name,
@@ -208,9 +261,11 @@ const ManageGameList = () => {
   const [gameData, setGameData] = useState(null);
   const [consoleData, setConsoleData] = useState(null);
   const [genreData, setGenreData] = useState(null);
+  const [modalMode, setModalMode] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const showModal = (game) => {
+  const showModal = (mode, game) => {
+    setModalMode(mode);
     setGameData(game);
     setIsModalOpen(true);
   };
@@ -218,6 +273,18 @@ const ManageGameList = () => {
     e.preventDefault();
     setGameData(null);
     setIsModalOpen(false);
+  };
+  const deleteGame = async (id) => {
+    try {
+      const response = await axiosInstance.delete(`/game/${id}/delete`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.token}`,
+        },
+      });
+      window.location.reload();
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   useEffect(() => {
@@ -253,7 +320,14 @@ const ManageGameList = () => {
 
   return (
     <section className="manage-console-list">
-      <h1 className="text-2xl mb-5">Manage Games</h1>
+      <h1 className="text-2xl ">Manage Games</h1>
+      <button
+        onClick={() => showModal(1, console)}
+        className="bg-green-500 hover:bg-green-600 text-slate-200 py-2 px-5 rounded-full mt-2 mb-4"
+      >
+        <FontAwesomeIcon icon={faPlus} />
+        Add Game
+      </button>
       {data ? (
         <div className="overflow-x-scroll">
           <table className="w-full text-xs md:text-sm">
@@ -287,12 +361,15 @@ const ManageGameList = () => {
                   <td className="pr-2">{game.price}</td>
                   <td className="pr-2">
                     <button
-                      onClick={() => showModal(game)}
+                      onClick={() => showModal(2, game)}
                       className="rounded-full py-1 px-4 mb-1 bg-green-500 hover:bg-green-600 text-slate-200 w-full"
                     >
                       Edit
                     </button>
-                    <button className="rounded-full py-1 px-4 bg-blue-700 hover:bg-blue-800 text-slate-200 w-full">
+                    <button
+                      onClick={() => deleteGame(game.id)}
+                      className="rounded-full py-1 px-4 bg-blue-700 hover:bg-blue-800 text-slate-200 w-full"
+                    >
                       Delete
                     </button>
                   </td>
@@ -302,6 +379,7 @@ const ManageGameList = () => {
           </table>
           <Modal
             isOpen={isModalOpen}
+            modalMode={modalMode}
             data={gameData}
             close={closeModal}
             genreData={genreData}

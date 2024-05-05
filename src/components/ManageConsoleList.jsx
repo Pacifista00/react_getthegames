@@ -1,17 +1,52 @@
 import { useState, useEffect } from "react";
 import axiosInstance from "../lib/axios";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
-const Modal = ({ isOpen, close, data }) => {
-  if (!data) return null;
-  const [oldImage, setOldImage] = useState(data.image_path);
+const Modal = ({ isOpen, modalMode, close, data }) => {
+  if (!isOpen) return null;
+  const [oldImage, setOldImage] = useState(
+    modalMode == 2 ? data.image_path : ""
+  );
   const [image, setImage] = useState(null);
-  const [name, setName] = useState(data.name);
-  const [developer, setDeveloper] = useState(data.developer);
-  const [releaseYear, setReleaseYear] = useState(data.release_year);
-  const [stock, setStock] = useState(data.stock);
-  const [price, setPrice] = useState(data.price);
-  const [description, setDescription] = useState(data.description);
+  const [name, setName] = useState(modalMode == 2 ? data.name : "");
+  const [developer, setDeveloper] = useState(
+    modalMode == 2 ? data.developer : ""
+  );
+  const [releaseYear, setReleaseYear] = useState(
+    modalMode == 2 ? data.release_year : ""
+  );
+  const [stock, setStock] = useState(modalMode == 2 ? data.stock : "");
+  const [price, setPrice] = useState(modalMode == 2 ? data.price : "");
+  const [description, setDescription] = useState(
+    modalMode == 2 ? data.description : ""
+  );
 
+  const addConsole = async (e) => {
+    e.preventDefault();
+    try {
+      const formData = new FormData();
+      formData.append("name", name);
+      formData.append("developer", developer);
+      formData.append("release_year", releaseYear);
+      formData.append("description", description);
+      formData.append("stock", stock);
+      formData.append("price", price);
+      if (image) {
+        formData.append("image", image);
+      }
+
+      const response = await axiosInstance.post(`/console/add`, formData, {
+        headers: {
+          Authorization: `Bearer ${localStorage.token}`,
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      window.location.reload();
+    } catch (error) {
+      console.error(error);
+    }
+  };
   const updateConsole = async (e) => {
     e.preventDefault();
     try {
@@ -48,20 +83,25 @@ const Modal = ({ isOpen, close, data }) => {
         <div className=" fixed inset-0 z-50 bg-black bg-opacity-50 overflow-y-scroll">
           <div className="flex items-center justify-center ">
             <div className="bg-white p-5 rounded-lg w-96 my-10">
-              <form onSubmit={updateConsole}>
-                <h1 className="text-2xl font-bold mb-4">Edit Profile</h1>
+              <form onSubmit={modalMode == 1 ? addConsole : updateConsole}>
+                <h1 className="text-2xl font-bold mb-4">
+                  {modalMode == 1 ? "Add Console" : "Edit Console"}
+                </h1>
                 <div>
                   <div className="mb-3">
-                    <img
-                      className="h-32 w-32 mx-auto object-cover mb-3 shadow-lg"
-                      src={oldImage}
-                      alt=""
-                    />
+                    {modalMode == 2 ? (
+                      <img
+                        className="h-32 w-32 mx-auto object-cover mb-3 shadow-lg"
+                        src={oldImage}
+                        alt=""
+                      />
+                    ) : null}
                     <input
                       id="image"
                       type="file"
                       className="mx-auto text-center bg-slate-200 rounded-md"
                       onChange={(e) => setImage(e.target.files[0])}
+                      {...(modalMode == 1 ? { required: true } : {})}
                     />
                   </div>
 
@@ -153,9 +193,11 @@ const Modal = ({ isOpen, close, data }) => {
 const ManageConsoleList = () => {
   const [data, setData] = useState(null);
   const [consoleData, setConsoleData] = useState(null);
+  const [modalMode, setModalMode] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const showModal = (consoles) => {
+  const showModal = (mode, consoles) => {
+    setModalMode(mode);
     setConsoleData(consoles);
     setIsModalOpen(true);
   };
@@ -163,6 +205,18 @@ const ManageConsoleList = () => {
     e.preventDefault();
     setConsoleData(null);
     setIsModalOpen(false);
+  };
+  const deleteConsole = async (id) => {
+    try {
+      const response = await axiosInstance.delete(`/console/${id}/delete`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.token}`,
+        },
+      });
+      window.location.reload();
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   useEffect(() => {
@@ -181,6 +235,13 @@ const ManageConsoleList = () => {
   return (
     <section className="manage-console-list">
       <h1 className="text-2xl mb-5">Manage Console</h1>
+      <button
+        onClick={() => showModal(1, console)}
+        className="bg-green-500 hover:bg-green-600 text-slate-200 py-2 px-5 rounded-full mt-2 mb-4"
+      >
+        <FontAwesomeIcon icon={faPlus} />
+        Add Console
+      </button>
       {data ? (
         <div className="overflow-x-scroll">
           <table className="w-full text-xs md:text-sm">
@@ -212,12 +273,15 @@ const ManageConsoleList = () => {
                   <td className="pr-2">{console.price}</td>
                   <td className="pr-2">
                     <button
-                      onClick={() => showModal(console)}
+                      onClick={() => showModal(2, console)}
                       className="rounded-full py-1 px-4 mb-1 bg-green-500 hover:bg-green-600 text-slate-200 w-full"
                     >
                       Edit
                     </button>
-                    <button className="rounded-full py-1 px-4 bg-blue-700 hover:bg-blue-800 text-slate-200 w-full">
+                    <button
+                      onClick={() => deleteConsole(console.id)}
+                      className="rounded-full py-1 px-4 bg-blue-700 hover:bg-blue-800 text-slate-200 w-full"
+                    >
                       Delete
                     </button>
                   </td>
@@ -225,7 +289,12 @@ const ManageConsoleList = () => {
               ))}
             </tbody>
           </table>
-          <Modal isOpen={isModalOpen} data={consoleData} close={closeModal} />
+          <Modal
+            isOpen={isModalOpen}
+            modalMode={modalMode}
+            data={consoleData}
+            close={closeModal}
+          />
         </div>
       ) : (
         <div>.....</div>
