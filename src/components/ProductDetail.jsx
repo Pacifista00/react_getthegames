@@ -21,7 +21,7 @@ const addToBasket = async (e, product_type, product_id, quantity) => {
   }
 };
 
-const ProductDetail = ({ product_type, id }) => {
+const ProductDetail = ({ formatRupiah, product_type, id }) => {
   const [product, setProduct] = useState(null);
   useEffect(() => {
     const getProduct = async (e) => {
@@ -56,7 +56,7 @@ const ProductDetail = ({ product_type, id }) => {
                 {product.name}
               </h1>
               <h2 className="text-lg md:text-xl text-green-500">
-                Rp <span>{product.price}</span>
+                {formatRupiah(product.price)}{" "}
               </h2>
               <div className="mt-4 md:mt-8 text-sm md:text-base font-semibold">
                 {product_type == "console" ? (

@@ -5,14 +5,14 @@ import ConsoleJumbotron from "../components/ConsolesJumbotron";
 import Footer from "../components/Footer";
 import ScrollToTopOnMount from "../components/ScrollToTopOnMount";
 
-const Consoles = () => {
+const Consoles = ({ formatRupiah }) => {
   return (
     <div className="flex flex-col min-h-screen">
       <ScrollToTopOnMount />
       <Navbar />
       <ConsoleJumbotron />
       <SearchBar />
-      <ConsoleList />
+      <ConsoleList formatRupiah={formatRupiah} />
       <Footer />
     </div>
   );

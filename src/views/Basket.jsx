@@ -6,7 +6,7 @@ import Footer from "../components/Footer";
 import ScrollToTopOnMount from "../components/ScrollToTopOnMount";
 import { useState } from "react";
 
-const Basket = () => {
+const Basket = ({ formatRupiah }) => {
   const [totalProduct, setTotalProduct] = useState(0);
   const [totalPrice, setTotalPrice] = useState(0);
 
@@ -18,10 +18,12 @@ const Basket = () => {
         <NavbarProfile />
         <div className="container mx-auto px-4 lg:px-16 flex gap-5 flex-col lg:flex-row">
           <BasketList
+            formatRupiah={formatRupiah}
             setTotalProduct={setTotalProduct}
             setTotalPrice={setTotalPrice}
           />
           <OrderDetailCard
+            formatRupiah={formatRupiah}
             totalProduct={totalProduct}
             totalPrice={totalPrice}
           />

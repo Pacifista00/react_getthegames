@@ -190,7 +190,7 @@ const Modal = ({ isOpen, modalMode, close, data }) => {
   );
 };
 
-const ManageConsoleList = () => {
+const ManageConsoleList = ({ formatRupiah }) => {
   const [data, setData] = useState(null);
   const [consoleData, setConsoleData] = useState(null);
   const [modalMode, setModalMode] = useState(null);
@@ -270,7 +270,7 @@ const ManageConsoleList = () => {
                   <td className="pr-2">{console.developer}</td>
                   <td className="pr-2">{console.release_year}</td>
                   <td className="pr-2">{console.stock}</td>
-                  <td className="pr-2">{console.price}</td>
+                  <td className="pr-2">{formatRupiah(console.price)}</td>
                   <td className="pr-2">
                     <button
                       onClick={() => showModal(2, console)}

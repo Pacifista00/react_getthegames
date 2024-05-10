@@ -2,7 +2,7 @@ import axiosInstance from "../lib/axios";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
-const ConsoleList = () => {
+const ConsoleList = ({ formatRupiah }) => {
   const [data, setData] = useState(null);
 
   useEffect(() => {
@@ -36,7 +36,7 @@ const ConsoleList = () => {
                       {console.developer}
                     </h2>
                     <h2 className="text-base md:text-lg text-sky-600">
-                      Rp <span>{console.price}</span>
+                      {formatRupiah(console.price)}
                     </h2>
                   </figcaption>
                 </div>

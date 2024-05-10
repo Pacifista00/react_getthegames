@@ -15,6 +15,12 @@ import ManageConsole from "./views/ManageConsole";
 import ManageGame from "./views/ManageGame";
 
 const root = createRoot(document.getElementById("root"));
+const formatRupiah = (number) => {
+  return new Intl.NumberFormat("id-ID", {
+    style: "currency",
+    currency: "IDR",
+  }).format(number);
+};
 
 root.render(
   <Router>
@@ -22,13 +28,25 @@ root.render(
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
       <Route path="/" element={<Home />} />
-      <Route path="/consoles" element={<Consoles />} />
+      <Route
+        path="/consoles"
+        element={<Consoles formatRupiah={formatRupiah} />}
+      />
       <Route path="/games" element={<Games />} />
-      <Route path="/product/:product_type/:id" element={<Product />} />
+      <Route
+        path="/product/:product_type/:id"
+        element={<Product formatRupiah={formatRupiah} />}
+      />
       <Route path="/profile" element={<Profile />} />
-      <Route path="/basket" element={<Basket />} />
-      <Route path="/manage/console" element={<ManageConsole />} />
-      <Route path="/manage/game" element={<ManageGame />} />
+      <Route path="/basket" element={<Basket formatRupiah={formatRupiah} />} />
+      <Route
+        path="/manage/console"
+        element={<ManageConsole formatRupiah={formatRupiah} />}
+      />
+      <Route
+        path="/manage/game"
+        element={<ManageGame formatRupiah={formatRupiah} />}
+      />
     </Routes>
   </Router>
 );

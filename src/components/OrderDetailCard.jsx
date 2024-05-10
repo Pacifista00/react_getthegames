@@ -1,4 +1,4 @@
-const OrderDetailCard = ({ totalProduct, totalPrice }) => {
+const OrderDetailCard = ({ formatRupiah, totalProduct, totalPrice }) => {
   return (
     <section className="p-6 w-full lg:w-72">
       <h1 className="md:text-2xl mb-7">Order Detail</h1>
@@ -8,9 +8,7 @@ const OrderDetailCard = ({ totalProduct, totalPrice }) => {
         </h4>
         <h4 className="w-full flex">
           Total Price :{" "}
-          <span className="ml-auto">
-            Rp <span>{totalPrice}</span>
-          </span>
+          <span className="ml-auto">{formatRupiah(totalPrice)}</span>
         </h4>
         <h4 className="w-full flex">
           Tax : <span className="ml-auto">0%</span>

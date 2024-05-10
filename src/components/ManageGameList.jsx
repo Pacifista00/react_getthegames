@@ -256,7 +256,7 @@ const Modal = ({ isOpen, modalMode, close, data, genreData, consoleData }) => {
   );
 };
 
-const ManageGameList = () => {
+const ManageGameList = ({ formatRupiah }) => {
   const [data, setData] = useState(null);
   const [gameData, setGameData] = useState(null);
   const [consoleData, setConsoleData] = useState(null);
@@ -358,7 +358,7 @@ const ManageGameList = () => {
                   <td className="pr-2">{game.publisher}</td>
                   <td className="pr-2">{game.release_year}</td>
                   <td className="pr-2">{game.stock}</td>
-                  <td className="pr-2">{game.price}</td>
+                  <td className="pr-2">{formatRupiah(game.price)}</td>
                   <td className="pr-2">
                     <button
                       onClick={() => showModal(2, game)}

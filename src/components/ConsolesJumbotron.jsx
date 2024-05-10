@@ -25,7 +25,7 @@ const ConsoleJumbotron = () => {
     <section className="console-jumbotron">
       <img
         className="h-96 w-full object-cover"
-        src="../../public/images/consoles/ps5jumbotron.webp"
+        src="../../public/images/ps5jumbotron.webp"
         alt=""
       />
       <div className="px-5 md:px-20 mx-auto py-10 shadow-lg flex justify-between items-end">
