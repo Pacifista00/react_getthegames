@@ -13,6 +13,7 @@ import Product from "./views/Product";
 import Profile from "./views/Profile";
 import ManageConsole from "./views/ManageConsole";
 import ManageGame from "./views/ManageGame";
+import PageNotFound from "./views/PageNotFound";
 
 const root = createRoot(document.getElementById("root"));
 const formatRupiah = (number) => {
@@ -47,6 +48,7 @@ root.render(
         path="/manage/game"
         element={<ManageGame formatRupiah={formatRupiah} />}
       />
+      <Route path="/*" element={<PageNotFound />} />
     </Routes>
   </Router>
 );
