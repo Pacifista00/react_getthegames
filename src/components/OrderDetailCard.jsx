@@ -1,16 +1,38 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axiosInstance from "../lib/axios";
 
 const OrderDetailCard = ({ formatRupiah, totalProduct, totalPrice }) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
+  const [isFormFilled, setIsFormFilled] = useState(false);
+
+  useEffect(() => {
+    if (name && email && phone) {
+      setIsFormFilled(true);
+    } else {
+      setIsFormFilled(false);
+    }
+  }, [name, email, phone]);
+
+  const deleteAllBasket = async () => {
+    try {
+      const response = await axiosInstance.delete(`/basket/deletes`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.token}`,
+        },
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   const showSnap = async (token) => {
     try {
       window.snap.pay(token, {
-        onSuccess: function (result) {
-          console.log("Payment success:", result);
+        onSuccess: async function () {
+          await deleteAllBasket();
+          window.location.reload();
         },
         onError: function (result) {
           console.error("Payment error:", result);
@@ -57,32 +79,37 @@ const OrderDetailCard = ({ formatRupiah, totalProduct, totalPrice }) => {
           Tax : <span className="ml-auto">0%</span>
         </h4>
       </div>
-      <div className="mt-7">
+      <div className="mt-3 border-t-2 pt-3">
         <form onSubmit={(e) => pay(totalPrice, e)}>
           <input
             id="name"
-            className="border-b-2 pt-1 px-2 focus:outline-none focus:border-black mx-auto w-full"
+            className="py-1 px-2 w-full border rounded-lg border-slate-300 focus:border-slate-800 focus:outline-none mb-2"
             type="text"
             placeholder="Name"
             onChange={(e) => setName(e.target.value)}
           />
           <input
             id="email"
-            className="border-b-2 pt-1 px-2 focus:outline-none focus:border-black mx-auto w-full"
+            className="py-1 px-2 w-full border rounded-lg border-slate-300 focus:border-slate-800 focus:outline-none mb-2"
             type="email"
             placeholder="email"
             onChange={(e) => setEmail(e.target.value)}
           />
           <input
             id="phone"
-            className="border-b-2 pt-1 px-2 focus:outline-none focus:border-black mx-auto w-full"
+            className="py-1 px-2 w-full border rounded-lg border-slate-300 focus:border-slate-800 focus:outline-none mb-2"
             type="number"
             placeholder="Phone Number"
             onChange={(e) => setPhone(e.target.value)}
           />
           <button
             type="submit"
-            className="rounded-full bg-green-500 py-2 px-5 text-gray-200 hover:bg-green-600 mt-4 w-full"
+            className={`rounded-full py-2 px-5 text-gray-200 mt-1 w-full
+              ${
+                isFormFilled ? "bg-green-500 hover:bg-green-600" : "bg-gray-300"
+              }
+            `}
+            disabled={!isFormFilled}
           >
             Pay
           </button>
