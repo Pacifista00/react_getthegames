@@ -7,11 +7,11 @@ import FeaturedGames from "../components/FeaturedGames";
 import Footer from "../components/Footer";
 import ScrollToTopOnMount from "../components/ScrollToTopOnMount";
 
-const Home = () => {
+const Home = ({ setToken }) => {
   return (
     <div className="flex flex-col min-h-screen">
       <ScrollToTopOnMount />
-      <Navbar />
+      <Navbar setToken={setToken} />
       <HeroImage />
       <TopGame />
       <NewConsole />

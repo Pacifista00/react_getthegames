@@ -1,8 +1,12 @@
 import "./index.css";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { createRoot } from "react-dom/client";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import "./index.css";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
 import Home from "./views/Home";
 import Consoles from "./views/Consoles";
 import Games from "./views/Games";
@@ -14,8 +18,12 @@ import Profile from "./views/Profile";
 import ManageConsole from "./views/ManageConsole";
 import ManageGame from "./views/ManageGame";
 import PageNotFound from "./views/PageNotFound";
+import NotAdmin from "./views/NotAdmin";
+import ProtectedRoute from "./components/ProtectedRoute";
+import AdminRoute from "./components/AdminRoute";
+import axiosInstance from "./lib/axios";
+import { Circles } from "react-loader-spinner";
 
-const root = createRoot(document.getElementById("root"));
 const formatRupiah = (number) => {
   return new Intl.NumberFormat("id-ID", {
     style: "currency",
@@ -23,32 +31,112 @@ const formatRupiah = (number) => {
   }).format(number);
 };
 
-root.render(
-  <Router>
-    <Routes>
-      <Route path="/login" element={<Login />} />
-      <Route path="/register" element={<Register />} />
-      <Route path="/" element={<Home />} />
-      <Route
-        path="/consoles"
-        element={<Consoles formatRupiah={formatRupiah} />}
-      />
-      <Route path="/games" element={<Games />} />
-      <Route
-        path="/product/:product_type/:id"
-        element={<Product formatRupiah={formatRupiah} />}
-      />
-      <Route path="/profile" element={<Profile />} />
-      <Route path="/basket" element={<Basket formatRupiah={formatRupiah} />} />
-      <Route
-        path="/manage/console"
-        element={<ManageConsole formatRupiah={formatRupiah} />}
-      />
-      <Route
-        path="/manage/game"
-        element={<ManageGame formatRupiah={formatRupiah} />}
-      />
-      <Route path="/*" element={<PageNotFound />} />
-    </Routes>
-  </Router>
-);
+const App = () => {
+  const [token, setToken] = useState(
+    localStorage.token ? localStorage.token : null
+  );
+  const [data, setData] = useState(null);
+
+  useEffect(() => {
+    const checkLogin = async () => {
+      if (token) {
+        try {
+          const response = await axiosInstance.get("/user", {
+            headers: {
+              Authorization: `Bearer ${localStorage.token}`,
+            },
+          });
+          setData(response.data.data);
+        } catch (error) {
+          localStorage.clear();
+          console.log(error);
+        }
+      }
+    };
+
+    checkLogin();
+  }, []);
+
+  return (
+    <React.StrictMode>
+      <Router>
+        <Routes>
+          <Route
+            path="/"
+            element={<Home setToken={setToken} Circles={Circles} />}
+          />
+          <Route
+            path="/login"
+            element={
+              token ? <Navigate to="/" /> : <Login setToken={setToken} />
+            }
+          />
+          <Route
+            path="/register"
+            element={token ? <Navigate to="/" /> : <Register />}
+          />
+          <Route
+            path="/consoles"
+            element={
+              <Consoles setToken={setToken} formatRupiah={formatRupiah} />
+            }
+          />
+          <Route path="/games" element={<Games setToken={setToken} />} />
+          <Route
+            path="/product/:product_type/:id"
+            element={
+              <Product setToken={setToken} formatRupiah={formatRupiah} />
+            }
+          />
+          <Route
+            path="/profile"
+            element={
+              <ProtectedRoute>
+                <Profile setToken={setToken} />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/basket"
+            element={
+              <ProtectedRoute>
+                <Basket setToken={setToken} formatRupiah={formatRupiah} />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/manage/console"
+            element={
+              <ProtectedRoute>
+                <AdminRoute data={data}>
+                  <ManageConsole
+                    setToken={setToken}
+                    formatRupiah={formatRupiah}
+                  />
+                </AdminRoute>
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/manage/game"
+            element={
+              <ProtectedRoute>
+                <AdminRoute data={data}>
+                  <ManageGame setToken={setToken} formatRupiah={formatRupiah} />
+                </AdminRoute>
+              </ProtectedRoute>
+            }
+          />
+          <Route path="/*" element={<PageNotFound />} />
+          <Route path="/notadmin" element={<NotAdmin />} />
+        </Routes>
+      </Router>
+    </React.StrictMode>
+  );
+};
+
+const root = createRoot(document.getElementById("root"));
+root.render(<App />);

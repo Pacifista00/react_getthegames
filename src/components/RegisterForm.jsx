@@ -6,6 +6,7 @@ import { useState } from "react";
 
 const RegisterForm = () => {
   const navigate = useNavigate();
+  const [name, setName] = useState("");
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -15,6 +16,7 @@ const RegisterForm = () => {
     e.preventDefault();
     try {
       const response = await axiosInstance.post("/register", {
+        name: name,
         username: username,
         email: email,
         password: password,
@@ -42,6 +44,17 @@ const RegisterForm = () => {
         <div className="flex flex-col gap-1 lg:gap-3 mb-3">
           <form onSubmit={register}>
             <div className="flex flex-col">
+              <label htmlFor="name">Name</label>
+              <input
+                id="name"
+                className="border-b-2 pt-1 px-2 focus:outline-none focus:border-black"
+                type="text"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                autoComplete="name"
+              />
+            </div>
+            <div className="flex flex-col">
               <label htmlFor="username">Username</label>
               <input
                 id="username"
@@ -49,6 +62,7 @@ const RegisterForm = () => {
                 type="text"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
+                autoComplete="username"
               />
             </div>
             <div className="flex flex-col">
@@ -59,6 +73,7 @@ const RegisterForm = () => {
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+                autoComplete="email"
               />
             </div>
             <div className="flex flex-col">

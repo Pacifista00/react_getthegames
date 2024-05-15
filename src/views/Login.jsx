@@ -1,16 +1,8 @@
-import { useNavigate } from "react-router-dom";
 import LoginForm from "../components/LoginForm";
 import LoginImage from "../components/LoginImage";
-import React, { useState, useEffect } from "react";
+import React from "react";
 
-const Login = () => {
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    localStorage.token ? navigate("/") : "";
-  }, []);
-
-  const [token, setToken] = useState(null);
+const Login = ({ setToken }) => {
   return (
     <div className="flex min-h-screen w-screen">
       <LoginForm setToken={setToken} />

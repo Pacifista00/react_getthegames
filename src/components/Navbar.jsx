@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import axiosInstance from "../lib/axios";
 
-const Navbar = () => {
+const Navbar = ({ setToken }) => {
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
   const [isLogin, setIsLogin] = useState(false);
@@ -40,10 +40,11 @@ const Navbar = () => {
           },
         }
       );
-      localStorage.setItem("token", "");
+      localStorage.clear();
+      setToken(null);
       navigate("/login");
     } catch (error) {
-      console.error(error);
+      navigate("/login");
     }
   };
   return (
