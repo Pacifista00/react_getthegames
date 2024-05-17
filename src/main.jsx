@@ -31,6 +31,10 @@ const formatRupiah = (number) => {
   }).format(number);
 };
 
+const Spinner = () => {
+  return <Circles color="#22c55e" height={40} />;
+};
+
 const App = () => {
   const [token, setToken] = useState(
     localStorage.token ? localStorage.token : null
@@ -63,7 +67,7 @@ const App = () => {
         <Routes>
           <Route
             path="/"
-            element={<Home setToken={setToken} Circles={Circles} />}
+            element={<Home setToken={setToken} Circles={Spinner} />}
           />
           <Route
             path="/login"
@@ -78,21 +82,32 @@ const App = () => {
           <Route
             path="/consoles"
             element={
-              <Consoles setToken={setToken} formatRupiah={formatRupiah} />
+              <Consoles
+                setToken={setToken}
+                formatRupiah={formatRupiah}
+                Circles={Spinner}
+              />
             }
           />
-          <Route path="/games" element={<Games setToken={setToken} />} />
+          <Route
+            path="/games"
+            element={<Games setToken={setToken} Circles={Spinner} />}
+          />
           <Route
             path="/product/:product_type/:id"
             element={
-              <Product setToken={setToken} formatRupiah={formatRupiah} />
+              <Product
+                setToken={setToken}
+                formatRupiah={formatRupiah}
+                Circles={Spinner}
+              />
             }
           />
           <Route
             path="/profile"
             element={
               <ProtectedRoute>
-                <Profile setToken={setToken} />
+                <Profile setToken={setToken} Circles={Spinner} />
               </ProtectedRoute>
             }
           />
@@ -101,7 +116,11 @@ const App = () => {
             path="/basket"
             element={
               <ProtectedRoute>
-                <Basket setToken={setToken} formatRupiah={formatRupiah} />
+                <Basket
+                  setToken={setToken}
+                  formatRupiah={formatRupiah}
+                  Circles={Spinner}
+                />
               </ProtectedRoute>
             }
           />
@@ -110,10 +129,11 @@ const App = () => {
             path="/manage/console"
             element={
               <ProtectedRoute>
-                <AdminRoute data={data}>
+                <AdminRoute>
                   <ManageConsole
                     setToken={setToken}
                     formatRupiah={formatRupiah}
+                    Circles={Spinner}
                   />
                 </AdminRoute>
               </ProtectedRoute>
@@ -125,7 +145,11 @@ const App = () => {
             element={
               <ProtectedRoute>
                 <AdminRoute data={data}>
-                  <ManageGame setToken={setToken} formatRupiah={formatRupiah} />
+                  <ManageGame
+                    setToken={setToken}
+                    formatRupiah={formatRupiah}
+                    Circles={Spinner}
+                  />
                 </AdminRoute>
               </ProtectedRoute>
             }

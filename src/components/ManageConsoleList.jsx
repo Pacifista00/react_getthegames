@@ -190,7 +190,7 @@ const Modal = ({ isOpen, modalMode, close, data }) => {
   );
 };
 
-const ManageConsoleList = ({ formatRupiah }) => {
+const ManageConsoleList = ({ formatRupiah, Circles }) => {
   const [data, setData] = useState(null);
   const [consoleData, setConsoleData] = useState(null);
   const [modalMode, setModalMode] = useState(null);
@@ -297,7 +297,9 @@ const ManageConsoleList = ({ formatRupiah }) => {
           />
         </div>
       ) : (
-        <div>.....</div>
+        <div className="flex justify-center py-20">
+          <Circles />
+        </div>
       )}
     </section>
   );

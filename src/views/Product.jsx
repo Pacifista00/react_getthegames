@@ -4,7 +4,7 @@ import Footer from "../components/Footer";
 import ScrollToTopOnMount from "../components/ScrollToTopOnMount";
 import { useParams } from "react-router-dom";
 
-const Product = ({ setToken, formatRupiah }) => {
+const Product = ({ setToken, formatRupiah, Circles }) => {
   let { product_type, id } = useParams();
   return (
     <div className="flex flex-col min-h-screen">
@@ -15,6 +15,7 @@ const Product = ({ setToken, formatRupiah }) => {
           product_type={product_type}
           id={id}
           formatRupiah={formatRupiah}
+          Circles={Circles}
         />
       </div>
       <Footer />

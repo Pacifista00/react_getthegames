@@ -6,7 +6,7 @@ import Footer from "../components/Footer";
 import ScrollToTopOnMount from "../components/ScrollToTopOnMount";
 import { useState } from "react";
 
-const Basket = ({ setToken, formatRupiah }) => {
+const Basket = ({ setToken, formatRupiah, Circles }) => {
   const [totalProduct, setTotalProduct] = useState(0);
   const [totalPrice, setTotalPrice] = useState(0);
 
@@ -21,6 +21,7 @@ const Basket = ({ setToken, formatRupiah }) => {
             formatRupiah={formatRupiah}
             setTotalProduct={setTotalProduct}
             setTotalPrice={setTotalPrice}
+            Circles={Circles}
           />
           <OrderDetailCard
             formatRupiah={formatRupiah}

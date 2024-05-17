@@ -123,7 +123,7 @@ const Modal = ({ isOpen, close, data }) => {
   );
 };
 
-const ProfileCard = () => {
+const ProfileCard = ({ Circles }) => {
   const [data, setData] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -180,7 +180,9 @@ const ProfileCard = () => {
           </div>
         </div>
       ) : (
-        <div>.....</div>
+        <div className="flex justify-center py-20">
+          <Circles />
+        </div>
       )}
     </div>
   );

@@ -2,7 +2,7 @@ import axiosInstance from "../lib/axios";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
-const ConsoleList = ({ formatRupiah }) => {
+const ConsoleList = ({ formatRupiah, Circles }) => {
   const [data, setData] = useState(null);
 
   useEffect(() => {
@@ -45,7 +45,9 @@ const ConsoleList = ({ formatRupiah }) => {
           ))}
         </div>
       ) : (
-        <div className="px-4 md:px-10 lg:px-16">.....</div>
+        <div className="flex justify-center py-20">
+          <Circles />
+        </div>
       )}
     </section>
   );

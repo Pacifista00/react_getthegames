@@ -256,7 +256,7 @@ const Modal = ({ isOpen, modalMode, close, data, genreData, consoleData }) => {
   );
 };
 
-const ManageGameList = ({ formatRupiah }) => {
+const ManageGameList = ({ formatRupiah, Circles }) => {
   const [data, setData] = useState(null);
   const [gameData, setGameData] = useState(null);
   const [consoleData, setConsoleData] = useState(null);
@@ -387,7 +387,9 @@ const ManageGameList = ({ formatRupiah }) => {
           />
         </div>
       ) : (
-        <div>.....</div>
+        <div className="flex justify-center py-20">
+          <Circles />
+        </div>
       )}
     </section>
   );

@@ -22,7 +22,7 @@ const addToBasket = async (e, game_id, quantity) => {
   }
 };
 
-const NewGame = () => {
+const NewGame = ({ Circles }) => {
   const [data, setData] = useState(null);
 
   useEffect(() => {
@@ -70,7 +70,9 @@ const NewGame = () => {
           </div>
         </div>
       ) : (
-        <div>...</div>
+        <div className="flex justify-center py-20">
+          <Circles />
+        </div>
       )}
     </section>
   );

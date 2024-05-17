@@ -2,7 +2,7 @@ import axiosInstance from "../lib/axios";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
-const GameList = () => {
+const GameList = ({ Circles }) => {
   const [data, setData] = useState(null);
 
   useEffect(() => {
@@ -46,7 +46,9 @@ const GameList = () => {
             ))}
           </div>
         ) : (
-          <div>.....</div>
+          <div className="flex justify-center py-20">
+            <Circles />
+          </div>
         )}
       </div>
     </section>

@@ -21,7 +21,7 @@ const addToBasket = async (e, product_type, product_id, quantity) => {
   }
 };
 
-const ProductDetail = ({ formatRupiah, product_type, id }) => {
+const ProductDetail = ({ formatRupiah, product_type, id, Circles }) => {
   const [product, setProduct] = useState(null);
   useEffect(() => {
     const getProduct = async (e) => {
@@ -112,7 +112,9 @@ const ProductDetail = ({ formatRupiah, product_type, id }) => {
             </div>
           </>
         ) : (
-          <div>.....</div>
+          <div className="flex justify-center py-20">
+            <Circles />
+          </div>
         )}
       </div>
     </section>

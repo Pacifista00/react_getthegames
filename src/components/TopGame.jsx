@@ -1,7 +1,7 @@
 import axiosInstance from "../lib/axios";
 import { useState, useEffect } from "react";
 
-const TopGame = () => {
+const TopGame = ({ Circles }) => {
   const [data, setData] = useState(null);
 
   useEffect(() => {
@@ -35,7 +35,9 @@ const TopGame = () => {
             ))}
           </div>
         ) : (
-          <p>Loading...</p>
+          <div className="flex justify-center py-10">
+            <Circles />
+          </div>
         )}
       </section>
     </>

@@ -4,7 +4,7 @@ import NavbarProfile from "../components/NavbarProfile";
 import ManageGameList from "../components/ManageGameList";
 import ScrollToTopOnMount from "../components/ScrollToTopOnMount";
 
-const ManageGame = ({ setToken, formatRupiah }) => {
+const ManageGame = ({ setToken, formatRupiah, Circles }) => {
   return (
     <div className="flex flex-col min-h-screen">
       <ScrollToTopOnMount />
@@ -12,7 +12,7 @@ const ManageGame = ({ setToken, formatRupiah }) => {
       <div className="py-10">
         <NavbarProfile />
         <div className="container px-2 md:px-10 mx-auto">
-          <ManageGameList formatRupiah={formatRupiah} />
+          <ManageGameList formatRupiah={formatRupiah} Circles={Circles} />
         </div>
       </div>
       <Footer />
