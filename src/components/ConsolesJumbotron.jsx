@@ -28,7 +28,7 @@ const ConsoleJumbotron = () => {
         src="../../public/images/ps5jumbotron.webp"
         alt=""
       />
-      <div className="px-5 md:px-20 mx-auto py-10 shadow-lg flex justify-between items-end">
+      <div className="px-5 md:px-20 mx-auto py-10 shadow-lg flex flex-col md:flex-row justify-between md:items-end">
         <div>
           <h4 className="text-3xl">Fantastic Offer</h4>
           <p className="mt-2">
@@ -38,7 +38,7 @@ const ConsoleJumbotron = () => {
         </div>
         <button
           onClick={(e) => addToBasket(e, 5, 1)}
-          className="rounded-full h-fit bg-blue-700 py-3 px-5 text-gray-200 hover:bg-blue-800"
+          className="rounded-full h-fit bg-blue-700 mt-3 md:mt-0 py-3 px-5 text-gray-200 hover:bg-blue-800"
         >
           Add to basket
         </button>

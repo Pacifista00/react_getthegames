@@ -2,25 +2,35 @@ import { useNavigate, Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import axiosInstance from "../lib/axios";
+import { Circles } from "react-loader-spinner";
 import { useState } from "react";
 
 const LoginForm = ({ setToken }) => {
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [loginText, setLoginText] = useState("Login");
 
   const login = async (e) => {
+    setLoginText(<Circles color="#FFF" height={15} />);
     e.preventDefault();
     try {
       const response = await axiosInstance.post("/login", {
         username: username,
         password: password,
       });
-      localStorage.setItem("token", response.data.data.token);
-      setToken(response.data.data.token);
-      navigate("/");
+      if (response.data.data.token) {
+        localStorage.setItem("token", response.data.data.token);
+        setToken(response.data.data.token);
+        navigate("/");
+      } else {
+        setLoginText("Login");
+        setPassword("");
+        alert("Invalid Account!");
+      }
     } catch (error) {
-      console.error(error);
+      alert("Complete all available fields!");
+      setLoginText("Login");
     }
   };
 
@@ -62,10 +72,10 @@ const LoginForm = ({ setToken }) => {
               />
             </div>
             <button
-              className="mt-3 rounded-full bg-green-500 py-2 px-5 text-gray-200 hover:bg-green-600 w-full"
+              className="flex justify-center items-center mt-3 rounded-full focus:outline-none bg-green-500 h-10 text-gray-200 hover:bg-green-600 w-full"
               type="submit"
             >
-              Login
+              {loginText}
             </button>
           </form>
         </div>
@@ -73,7 +83,7 @@ const LoginForm = ({ setToken }) => {
           <h2>New here? Create your account.</h2>
           <Link to="/register">
             <button
-              className="my-3 rounded-full bg-blue-700 py-2 px-5 text-gray-200 hover:bg-blue-800 w-full"
+              className="my-3 rounded-full bg-blue-700 h-10 text-gray-200 focus:outline-none hover:bg-blue-800 w-full"
               type="submit"
             >
               Register

@@ -2,6 +2,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import axiosInstance from "../lib/axios";
+import { Circles } from "react-loader-spinner";
 import { useState } from "react";
 
 const RegisterForm = () => {
@@ -11,8 +12,10 @@ const RegisterForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
+  const [registerText, setRegisterText] = useState("Register");
 
   const register = async (e) => {
+    setRegisterText(<Circles color="#FFF" height={15} />);
     e.preventDefault();
     try {
       const response = await axiosInstance.post("/register", {
@@ -24,7 +27,8 @@ const RegisterForm = () => {
       });
       navigate("/login");
     } catch (error) {
-      console.error(error);
+      alert("Complete all available fields!");
+      setRegisterText("Register");
     }
   };
   return (
@@ -97,10 +101,10 @@ const RegisterForm = () => {
               />
             </div>
             <button
-              className="mt-3 rounded-full bg-green-500 py-2 px-5 text-gray-200 hover:bg-green-600 w-full"
+              className="flex justify-center items-center mt-3 rounded-full focus:outline-none bg-green-500 h-10 text-gray-200 hover:bg-green-600 w-full"
               type="submit"
             >
-              Register
+              {registerText}
             </button>
           </form>
         </div>
@@ -108,7 +112,7 @@ const RegisterForm = () => {
           <h2>Have account? Login here.</h2>
           <Link to="/login">
             <button
-              className="mt-3 rounded-full bg-blue-700 py-2 px-5 text-gray-200 hover:bg-blue-800 w-full"
+              className="mt-3 rounded-full bg-blue-700 h-10 text-gray-200 focus:outline-none hover:bg-blue-800 w-full"
               type="submit"
             >
               Login

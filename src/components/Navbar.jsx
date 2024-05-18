@@ -65,20 +65,20 @@ const Navbar = ({ setToken }) => {
             isOpen ? "" : "hidden"
           }`}
         >
-          <ul className="md:flex gap-7 text-slate-300">
-            <li className="hover:text-slate-500 cursor-pointer mb-2 md:mb-0">
+          <ul className="md:flex gap-7 text-slate-500 md:text-slate-300">
+            <li className="hover:text-slate-600 md:hover:text-slate-500 cursor-pointer mb-2 md:mb-0">
               <Link to="/">Home</Link>
             </li>
-            <li className="hover:text-slate-500 cursor-pointer mb-2 md:mb-0">
+            <li className="hover:text-slate-600 md:hover:text-slate-500 cursor-pointer mb-2 md:mb-0">
               <Link to="/consoles">Consoles</Link>
             </li>
-            <li className="hover:text-slate-500 cursor-pointer mb-2 md:mb-0">
+            <li className="hover:text-slate-600 md:hover:text-slate-500 cursor-pointer mb-2 md:mb-0">
               <Link to="/games">Games</Link>
             </li>
           </ul>
         </div>
         <div
-          className={`flex-shrink-0 md:block mt-3 md:mt-0 ${
+          className={`flex-shrink-0 md:block my-3 md:my-0 ${
             isOpen ? "" : "hidden"
           }`}
         >
